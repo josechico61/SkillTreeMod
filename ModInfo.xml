@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <xml>
-        <Name value="SkillTreeMod"/>
-        <DisplayName value="Po's amazing bestest Progression Overhaul Mod, Lythik can suck it!"/>
-        <Version value="0.1.0"/>
-	<Description value="Adds a custom skill tree system with its own UI and progression."/>
-        <Author value="Jose_and_Chat"/>
-        <Website value=""/>
+  <Name value="SkillTreeMod" />
+  <DisplayName value="Skill Tree Mod" />
+  <Version value="0.1.0" />
+  <Description value="WIP skill tree framework and UI." />
+  <Author value="josechico61" />
+  <!-- Optional, if you add these assets later -->
+  <!-- <Icon value="Textures/SkillTreeMod_icon.png" /> -->
+  <!-- <Banner value="Textures/SkillTreeMod_banner.png" /> -->
 </xml>
