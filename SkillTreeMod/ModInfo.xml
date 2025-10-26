@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xml>
+        <Name value="SkillTreeMod"/>
+        <DisplayName value="Po's amazing bestest Progression Overhaul Mod, Lythik can suck it!"/>
+        <Version value="0.1.0"/>
+	<Description value="Adds a custom skill tree system with its own UI and progression."/>
+        <Author value="Jose_and_Chat"/>
+        <Website value=""/>
+</xml>
