@@ -1,5 +1,4 @@
 using HarmonyLib;
-using UnityEngine;
 
 namespace SkillTreeMod
 {
@@ -7,9 +6,16 @@ namespace SkillTreeMod
     {
         public void InitMod(Mod modInstance)
         {
-            Debug.Log("[SkillTreeMod] InitMod()");
-            var harmony = new Harmony("com.josechico.SkillTreeMod");
-            harmony.PatchAll();
+            Log("[SkillTreeMod] InitMod()");
+            var h = new Harmony("com.josechico.SkillTreeMod");
+            // DO NOT use PatchAll() – we install only if we find a target.
+            SkillTreeMod.HarmonyPatches.PatchInstaller.Install(h);
+        }
+
+        private void Log(string s)
+        {
+            var con = SingletonMonoBehaviour<SdtdConsole>.Instance;
+            if (con != null) con.Output(s);
         }
     }
 }
