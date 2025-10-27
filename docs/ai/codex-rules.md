@@ -37,6 +37,8 @@ Codex must generate UI XML that matches vanilla 7DTD patterns exactly. Never inv
 
 8\) \*\*Minimalism.\*\* Only include what the vanilla example needs; don’t add helpful-but-nonvanilla sugar.
 
+9) Apply placement math from docs/ai/design-rules.md (anchor discipline, centering formulas, debug-sprite technique).
+
 
 
 ---
