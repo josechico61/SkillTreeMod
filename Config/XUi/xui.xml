@@ -1,0 +1,13 @@
+<configs>
+  <!-- Dedicated group for our modal so HUD/compass never break -->
+  <append xpath="/xui/ruleset[@name='default']">
+    <window_group name="skilltree" defaultSelected="title">
+      <window name="SkillTreeMenuWindow"/>
+    </window_group>
+  </append>
+
+  <!-- Show the HUD opener button with the standard HUD -->
+  <append xpath="/xui/ruleset[@name='default']/window_group[@name='compass']">
+    <window name="HUDSkillTreeButton"/>
+  </append>
+</configs>

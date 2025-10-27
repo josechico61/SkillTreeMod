@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<windows>
+
+  <!-- =================== GOOD (copy this pattern) =================== -->
+  <window name="SkillTreeMenuWindow" anchor="Center" clipWindow="true">
+    <!-- Layout lives inside containers (no width/height on <window>) -->
+    <rect name="body" pos="0,0" rows="1" cols="1" width="360" height="220">
+      <!-- Background panel (red) -->
+      <sprite depth="1" name="bg" color="255,0,0,255" type="sliced" />
+
+      <!-- Title label -->
+      <label depth="2" name="title" text="SkillTreeMenu" />
+
+      <!-- Close 'X' button (top-right of this rect) -->
+      <button depth="3" name="closeButton" pos="330,8" width="20" height="20">
+        <sprite depth="1" name="btnBg" color="0,0,0,160" type="sliced" />
+        <label depth="2" name="btnText" text="X" />
+      </button>
+    </rect>
+  </window>
+
+  <!-- =================== BAD (do not imitate) =================== -->
+  <!-- Violations shown via comments on each line -->
+  <window name="BadExampleWindow" anchor="Center" width="360" height="220"> <!-- BAD: width/height on <window> -->
+    <sprite depth="1" name="bg" color="#FF0000" /> <!-- BAD: hex color, and content directly under <window> -->
+    <button depth="2" name="closeBtn" width="20" height="20"> <!-- BAD: floating button without layout container -->
+      <label depth="1" text="X" customStyle="Fancy" /> <!-- BAD: invented attribute 'customStyle' -->
+    </button>
+  </window>
+
+</windows>

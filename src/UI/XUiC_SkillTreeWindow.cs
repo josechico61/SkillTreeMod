@@ -1,7 +1,16 @@
-namespace SkillTreeMod.UI
+using System;
+
+public class XUiC_SkillTreeWindow : XUiController
 {
-    public class XUiC_SkillTreeWindow : XUiController
+    public override void Init()
     {
-        public override void OnOpen() { base.OnOpen(); /* populate list later */ }
+        base.Init();
+        // no logging here (build-friendly)
+    }
+
+    public override void OnOpen()
+    {
+        base.OnOpen();
+        // could RefreshBindings() later if we add {bindings}
     }
 }

@@ -1,20 +1,30 @@
-namespace SkillTreeMod.UI
-{
-    public class XUiC_SkillPointsBadge : XUiController
-    {
-        public override void Update(float _dt)
-        {
-            base.Update(_dt);
+using SkillTreeMod.UI;
 
-            var child = GetChildById("lblPoints");           // returns XUiController
-            if (child != null)
-            {
-                var label = child.ViewComponent as XUiV_Label; // get the ViewComponent
-                if (label != null)
-                {
-                    label.Text = "SP: " + SkillTreeModEntry.CurrentUnspentPoints();
-                }
-            }
-        }
+public class XUiC_SkillPointsBadge : XUiController
+{
+    private XUiV_Label _lbl;
+    private int _lastSp = -1;
+
+    public override void Init()
+    {
+        base.Init();
+        var child = GetChildById("lblSP");
+        if (child != null) _lbl = child.ViewComponent as XUiV_Label;
+        UpdateSpText(true);
+    }
+
+    public override void Update(float _dt)
+    {
+        base.Update(_dt);
+        UpdateSpText(false);
+    }
+
+    private void UpdateSpText(bool force)
+    {
+        var sp = UIHelpers.GetSkillPointsSafe();
+        if (!force && sp == _lastSp) return;
+        _lastSp = sp;
+
+        if (_lbl != null) _lbl.Text = "SP: " + sp;
     }
 }

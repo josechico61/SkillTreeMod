@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "7DTD XUi Schema (SkillTreeMod Guardrails)",
+  "type": "object",
+  "properties": {
+    "windows": { "type": "object" }
+  },
+  "xui:global_attribute_whitelist": [
+    "name","depth","pos","width","height","rows","cols","cell_width","cell_height",
+    "repeat_content","controller","style","visible","pivot","anchor","anchor_side",
+    "anchor_offset","anchor_run_once","side","panel","cursor_area","background",
+    "backgroundcolor","defaultcolor","hovercolor","selectedcolor","color","type",
+    "sprite","atlas","size","fill","filldirection","fillinvert",
+    "globalopacity","globalopacitymod","foregroundlayer","justify","text","text_key",
+    "font_size","upper_case","overflow","effect","effect_distance","effect_color",
+    "tooltip","tooltip_key","sound","sound_play_on_hover","selected","gamepad_selectable",
+    "on_hover","on_press","on_scroll","collider_scale","rotation","parse_actions",
+    "defaultSelected","open_backpack_on_open","close_compass_on_open","actionSet",
+    "left_panel_valign_top","xpath","value","anchor"
+  ],
+  "xui:allowed_tags": [
+    "windows","window","rect","grid","panel",
+    "sprite","filledsprite","texture","label","button",
+    "pager","gamepad_icon",
+    "window_group","xui","ruleset",
+    "toolbelt_item_stack","recipe_entry","recipe_stack",
+    "active_buff_entry","equipment_stack_sdcs","item_action_entry",
+    "creativeItem_stack","textfield",
+    "party_entry","quest_objective_tracker_entry","category_icon",
+    "configs","append","remove","set","setattribute"
+  ],
+  "elements": {
+    "window": {
+      "allowed_attributes": [
+        "name","anchor","controller","pivot","background","clipWindow",
+        "cursor_area","modal","visible","panel","pos","depth","width","height"
+      ]
+    },
+    "window_group": {
+      "allowed_attributes": [
+        "name","controller","defaultSelected","open_backpack_on_open",
+        "close_compass_on_open","actionSet","left_panel_valign_top","anchor"
+      ]
+    },
+    "rect": {
+      "allowed_attributes": [
+        "name","pos","width","height","rows","cols","controller","side","pivot","depth","visible","padding","rotation"
+      ]
+    },
+    "grid": {
+      "allowed_attributes": [
+        "name","pos","rows","cols","width","height","cell_width","cell_height",
+        "repeat_content","arrangement","controller","side","pivot","depth","visible","padding"
+      ]
+    },
+    "panel": {
+      "allowed_attributes": [
+        "name","pos","width","height","depth","disableautobackground","backgroundspritename",
+        "visible","on_hover","on_press","on_scroll","gamepad_selectable","cursor_area","panel"
+      ]
+    },
+    "sprite": {
+      "allowed_attributes": [
+        "name","depth","pos","width","height","size","sprite","atlas","type","color",
+        "globalopacity","globalopacitymod","foregroundlayer","pivot","hoversprite","hovercolor"
+      ]
+    },
+    "filledsprite": {
+      "allowed_attributes": [
+        "name","depth","pos","width","height","sprite","type","color","fill",
+        "filldirection","fillinvert","globalopacitymod","foregroundlayer"
+      ]
+    },
+    "texture": {
+      "allowed_attributes": [
+        "name","depth","pos","width","height","size","texture","material",
+        "rect_size","rect_offset","globalopacity","globalopacitymod"
+      ]
+    },
+    "label": {
+      "allowed_attributes": [
+        "name","depth","pos","width","height","text","text_key","font_size","justify",
+        "pivot","color","effect","effect_distance","effect_color","upper_case",
+        "overflow","max_line_count","parse_actions"
+      ]
+    },
+    "button": {
+      "allowed_attributes": [
+        "name","depth","pos","width","height","sprite","type","style","tooltip","tooltip_key",
+        "defaultcolor","hovercolor","selectedcolor","hoversprite","selectedsprite",
+        "hoverscale","pivot","sound","sound_play_on_hover","visible","selected"
+      ]
+    },
+    "pager": { "allowed_attributes": ["name","pos","contents_parent"] },
+    "gamepad_icon": { "allowed_attributes": ["name","depth","size","pos","pivot","visible"] },
+    "textfield": {
+      "allowed_attributes": [
+        "name","depth","pos","width","height","value","active_text_color","caret_color",
+        "selection_color","character_limit","validation","backgroundcolor","on_hover","on_scroll",
+        "virtual_keyboard_prompt","pivot","visible","on_return","tooltip_key","search_field",
+        "password_field","clear_button","focus_on_open","clear_on_open","close_group_on_tab",
+        "open_vk_on_open","foregroundlayer","justify","overflow","max_line_count",
+        "font_face","crispness"
+      ]
+    },
+    "configs": { "allowed_attributes": [] },
+    "append":  { "allowed_attributes": ["xpath"] },
+    "remove":  { "allowed_attributes": ["xpath"] },
+    "set":     { "allowed_attributes": ["xpath"] },
+    "setattribute": { "allowed_attributes": ["xpath","name"] }
+  },
+  "xui:regex_rules": {
+    "colors_rgba_only": {
+      "description": "Only RGBA integers or style refs like [white]. No hex.",
+      "forbidden": ["#[0-9A-Fa-f]{3,8}"]
+    }
+  }
+}

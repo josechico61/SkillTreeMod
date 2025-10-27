@@ -1,5 +1,4 @@
-using System;
-using System.Linq;
+﻿using System;
 using System.Reflection;
 using HarmonyLib;
 
@@ -15,24 +14,26 @@ namespace SkillTreeMod.HarmonyPatches
         {
             try
             {
-                string tName, mName; // use locals for out params
-                var original = ResolveProgressionMethod(out tName, out mName);
+                string tName, mName;
+                var target = ResolveProgressionXpMethod(out tName, out mName);
 
                 HookTypeName = tName;
                 HookMethodName = mName;
 
-                if (original == null)
+                if (target == null)
                 {
-                    Log("no progression hook found; skipping patch (mod will still run)");
+                    Log("no suitable Progression XP method found; patch skipped");
                     return;
                 }
 
-                var postfix = new HarmonyMethod(typeof(LevelUpPostfix).GetMethod(
-                    "Postfix", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic));
+                var pre = new HarmonyMethod(typeof(LevelUpDetector).GetMethod(nameof(LevelUpDetector.Prefix),
+                              BindingFlags.Static | BindingFlags.Public));
+                var post = new HarmonyMethod(typeof(LevelUpDetector).GetMethod(nameof(LevelUpDetector.Postfix),
+                              BindingFlags.Static | BindingFlags.Public));
 
-                h.Patch(original, postfix: postfix);
+                h.Patch(target, prefix: pre, postfix: post);
                 Installed = true;
-                Log("patched " + HookTypeName + "." + HookMethodName + " (postfix)");
+                Log("patched " + HookTypeName + "." + HookMethodName + " (prefix+postfix)");
             }
             catch (Exception ex)
             {
@@ -40,27 +41,19 @@ namespace SkillTreeMod.HarmonyPatches
             }
         }
 
-        private static MethodBase ResolveProgressionMethod(out string typeName, out string methodName)
+        // Prefer Progression.AddLevelExpRecursive(int,string,bool), fallback to AddLevelExp(int,string,XPTypes,bool,bool)
+        private static MethodBase ResolveProgressionXpMethod(out string typeName, out string methodName)
         {
             typeName = null; methodName = null;
 
-            Type t = AccessTools.TypeByName("Progression")
-                     ?? AccessTools.TypeByName("PlayerProgression")
-                     ?? AccessTools.AllTypes().FirstOrDefault(tt => tt.Name.EndsWith("Progression"));
-
+            var t = AccessTools.TypeByName("Progression");
             if (t == null) return null;
             typeName = t.FullName;
 
-            MethodInfo m =
-                AccessTools.Method(t, "OnLevelUp") ??
-                AccessTools.Method(t, "LevelUp") ??
-                AccessTools.Method(t, "OnLevelChanged") ??
-                AccessTools.Method(t, "ChangeLevel") ??
-                AccessTools.Method(t, "AddLevel") ??
-                AccessTools.Method(t, "SetLevel");
-
+            // Try the exact signatures first
+            var m = AccessTools.Method(t, "AddLevelExpRecursive", new Type[] { typeof(int), typeof(string), typeof(bool) });
             if (m == null)
-                m = AccessTools.PropertySetter(t, "Level");
+                m = AccessTools.Method(t, "AddLevelExp", new Type[] { typeof(int), typeof(string), AccessTools.TypeByName("Progression+XPTypes"), typeof(bool), typeof(bool) });
 
             if (m != null) methodName = m.Name;
             return m;
@@ -73,11 +66,48 @@ namespace SkillTreeMod.HarmonyPatches
         }
     }
 
-    public static class LevelUpPostfix
+    // Works on Progression instance: compare Level before/after the XP add
+    public static class LevelUpDetector
     {
-        public static void Postfix()
+        public static void Prefix(object __instance, ref int __state)
         {
-            SkillTreeModEntry.SafeAddPoints(SkillTreeMod.Core.SkillTreeSettings.PointsPerLevel);
+            __state = ReadLevel(__instance);
+        }
+
+        public static void Postfix(object __instance, int __state)
+        {
+            var after = ReadLevel(__instance);
+            if (__state > 0 && after > __state)
+            {
+                SkillTreeModEntry.SafeAddPoints(SkillTreeMod.Core.SkillTreeSettings.PointsPerLevel);
+                var con = SingletonMonoBehaviour<SdtdConsole>.Instance;
+                if (con != null) con.Output("[SkillTreeMod] Level up detected (" + __state + "→" + after + "), awarded SP");
+            }
+        }
+
+        private static int ReadLevel(object progressionObj)
+        {
+            if (progressionObj == null) return -1;
+            try
+            {
+                var t = progressionObj.GetType();
+                // field Int32 Level (from your dump)
+                var f = t.GetField("Level", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                if (f != null)
+                {
+                    var val = f.GetValue(progressionObj);
+                    if (val is int i) return i;
+                }
+                // property Int32 GetLevel() also exists; try method if needed
+                var m = t.GetMethod("GetLevel", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                if (m != null)
+                {
+                    var val2 = m.Invoke(progressionObj, null);
+                    if (val2 is int j) return j;
+                }
+            }
+            catch { }
+            return -1;
         }
     }
 }

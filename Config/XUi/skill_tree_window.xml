@@ -1,9 +1,0 @@
-<configs>
-  <window_group name="skill_tree_window" controller="SkillTreeMod.UI.XUiC_SkillTreeWindow" >
-    <window name="st_root" width="400" height="300" >
-      <panel name="content">
-        <label name="title" text="Skill Tree (WIP)" />
-      </panel>
-    </window>
-  </window_group>
-</configs>

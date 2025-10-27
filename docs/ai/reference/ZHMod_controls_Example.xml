@@ -1,0 +1,692 @@
+<configs>
+<append xpath="/controls">
+<zhIngamesimplebutton depth="3" pos="0,0" width="200" height="32" enabled_font_color="[labelColor]" disabled_font_color="[disabledLabelColor]" visible="true" enabled="true" bordersprite="menu_empty2px" bordercolor="[black]" pivot="left" defaultsprite="menu_empty" defaultcolor="[mediumGrey]" hoversprite="ui_game_select_row" hovercolor="[white]" selectedsprite="ui_game_select_row" selectedcolor="[mediumGrey]" foregroundlayer="true" tooltip_key="" disabled_tooltip_key="" sound="[default_click]" justify="center" caption="" caption_key="" font_size="28" upper_case="false" parse_actions="false">
+<rect name="${name}" depth="${depth}" pos="${pos}" width="${width}" height="${height}" enabled_font_color="[white]" disabled_font_color="[mediumGrey]" controller="SimpleButton" visible="${visible}" button_enabled="${enabled}">
+<sprite depth="1" name="border" sprite="${bordersprite}" pos="0,${Round(-height/2,0)}" color="${bordercolor}" type="sliced" fillcenter="false" foregroundlayer="true" pivot="${pivot}"/>
+<button name="clickable" pos="0,${Round(-height/2,0)}" sprite="ui_zhTabButton" disabledcolor="[mediumGrey]" hoversprite="ui_zhTabButtonHover" hovercolor="${hovercolor}" selectedsprite="${selectedsprite}" selectedcolor="${selectedcolor}" type="sliced" hoverscale="1.0" pivot="${pivot}" tooltip_key="${tooltip_key}" disabled_tooltip_key="${disabled_tooltip_key}" sound_play_on_hover="[default_hover]" sound="${sound}"/>
+<label depth="2" name="btnLabel" width="${width}" height="${height-2}" pos="0,${Round(-height/2,0)}" justify="${justify}" text="${caption}" text_key="${caption_key}" effect="outline" pivot="${pivot}" font_size="${font_size}" upper_case="${upper_case}" parse_actions="${parse_actions}"/>
+</rect>
+</zhIngamesimplebutton>
+
+<zhDebugslider depth="1" pos="0,0" width="200">
+<rect name="${name}" depth="${depth}" controller="Slider" pos="${pos}" width="${width}" height="62">
+<label depth="1" pos="0, -6" width="${width}" height="28" text="{name}: {value}"/>
+<rect pos="2,-34">
+<sprite name="bar" controller="SliderBar" depth="1" pos="4, -5" width="${width-12}" height="20" type="sliced" style="press, scroll"/>
+<sprite depth="2" pos="4, -5" sprite="ui_togglebuttonbg" type="sliced" fillcenter="false" width="${width-12}" height="20" foregroundlayer="true"/>
+<sprite name="thumb" controller="SliderThumb" depth="2" pos="${width-8}, -15" sprite="ui_togglebuttonslider" width="16" height="30" style="press, hover, drag, scroll" pivot="center">
+<sprite depth="2" sprite="ui_togglebuttonbg" type="sliced" fillcenter="false" width="16" height="30" pivot="center"/>
+</sprite>
+</rect>
+</rect>
+</zhDebugslider>
+
+<toolbelt_item_stack controller="ItemStack" on_scroll="false" allow_dropping="true" prefix_id="false" show_favorites="false">
+<rect controller="${controller}" style="itemStack, hover" collider_scale="1.0" on_scroll="${on_scroll}" allow_dropping="${allow_dropping}" prefix_id="${prefix_id}" show_favorites="${show_favorites}" tooltip="{tooltip}">
+<sprite depth="0" name="highlightOverlay" sprite="ui_ItemBlockHover_icon" color="{#selectionbordercolor == '255,255,255,255' ? '20,20,20' : '0,0,0'}" type="sliced" globalopacity="true" globalopacitymod="1"> </sprite>
+<sprite depth="3" sprite="{#selectionbordercolor == '255,255,255,255' || selectionbordercolor == '200,200,200,255' ? 'ui_ItemBlockHover_icon' : 'ui_ItemBlock_icon'}" hoversprite="ui_ItemBlockHover_icon" type="sliced" globalopacity="true" fillcenter="false" foregroundlayer="true"> </sprite>
+<sprite depth="8" name="favoriteIcon" width="24" height="24" sprite="server_favorite" pos="2,-2" foregroundlayer="true" visible="{isfavorite}"/>
+<sprite depth="6" name="itemIcon" width="64" height="64" atlas="ItemIconAtlas" sprite="{itemicon}" pos="35,-35" pivot="center" foregroundlayer="true" color="{iconcolor}"/>
+<sprite depth="8" name="lockTypeIcon" width="24" height="24" sprite="{locktypeicon}" pos="2,-2" foregroundlayer="true"/>
+<sprite depth="8" name="itemtypeicon" width="24" height="24" sprite="ui_game_symbol_{itemtypeicon}" pos="2,-2" foregroundlayer="true" visible="{hasitemtypeicon}" color="{itemtypeicontint}"/>
+<sprite depth="3" name="durabilityBackground" width="70" height="10" sprite="ui_Durability" color="[darkGrey]" type="sliced" pos="1, -60" foregroundlayer="true" visible="{hasdurability}"/>
+<sprite name="itemBackgroundDurability" depth="5" pos="35,-35" width="65" height="65" sprite="quality_background" pivot="center" color="{durabilitycolor}" globalopacitymod="0.5" visible="{hasdurability}"/>
+<filledsprite depth="4" name="durability" width="70" height="10" sprite="ui_Durability" color="{durabilitycolor}" fill="{durabilityfill}" type="filled" pos="1, -60" foregroundlayer="true" visible="{hasdurability}"/>
+<label depth="7" name="stackValue" pos="-2,-45" width="70" height="28" text="{itemcount}" font_size="26" effect="outline" justify="{#hasdurability ? 'Center' : 'Right'}"/>
+<label depth="7" name="timer" pos="35,-38" width="70" height="24" font_size="24" justify="center" pivot="center" color="[beige]" effect="outline" effect_distance="1,1" effect_color="0,0,0,255"/>
+<sprite depth="9" name="cancel" sprite="ui_game_symbol_x" width="70" height="70" color="255,0,0,255" type="sliced" visible="false" foregroundlayer="true"/>
+<sprite depth="13" name="assembleIcon" size="40,40" sprite="{stacklockicon}" color="{stacklockcolor}" visible="{isassemblelocked}" pos="14,-14" foregroundlayer="true"/>
+</rect>
+</toolbelt_item_stack>
+</append>
+
+<remove xpath="/controls/recipe_entry"/>
+<append xpath="/controls">
+<recipe_entry>
+<rect height="43" style="press, hover, scroll" controller="RecipeEntry" sound="[recipe_click]" sound_play_on_hover="[default_hover]">
+<sprite depth="3" name="backgroundMain" sprite="ui_StatBarPcRXP_Bar" color="[mediumGrey]" pos="-3,3" width="391" height="49" type="sliced" fillcenter="false"/>
+<sprite depth="3" name="background" sprite="ui_StatBarPcRXP_Bar" globalopacitymod="0.1" width="100%" height="45" pos="0,1" type="sliced"/>
+<sprite depth="4" name="Icon" atlas="ItemIconAtlas" sprite="{recipeicon}" color="{recipeicontint}" size="40,40" pos="34,-22" pivot="center" foregroundlayer="true"/>
+<sprite depth="8" name="itemtypeicon" width="12" height="12" sprite="ui_game_symbol_{itemtypeicon}" pos="2,-2" foregroundlayer="true" visible="{hasitemtypeicon}" color="{itemtypeicontint}"/>
+<label depth="4" name="Name" pos="200,-19" width="270" height="30" text="{recipename}" font_size="28" color="{hasingredientsstatecolor}" justify="center" pivot="center"/>
+<sprite depth="5" name="Favorite" sprite="server_favorite" size="14,14" pos="6,-4" visible="{isfavorite}" foregroundlayer="true"/>
+<sprite depth="4" name="Unlocked" sprite="{unlockicon}" size="24,24" pos="352,-10" visible="{isunlockable}" color="{unlockstatecolor}" foregroundlayer="true"/>
+</rect>
+</recipe_entry>
+</append>
+
+<remove xpath="/controls/recipe_stack"/>
+<append xpath="/controls">
+<recipe_stack>
+<rect controller="RecipeStack" width="72" height="72" collider_scale="1.0">
+<sprite depth="4" name="backgroundMain" sprite="ui_QueQue" color="[mediumGrey]" pos="-3,3" width="78" height="78" type="sliced" fillcenter="false"/>
+<sprite depth="4" name="background" sprite="ui_QueQue" type="sliced" style="press" color="{selectionbordercolor}" on_hover="true"/>
+<sprite depth="5" name="itemIcon" width="64" height="64" atlas="ItemIconAtlas" sprite="" pos="36,-35" pivot="center" foregroundlayer="true"/>
+<sprite depth="5" name="lockIcon" width="24" height="24" sprite="ui_game_symbol_hammer" pos="2,-2" visible="false" foregroundlayer="true"/>
+<label depth="5" name="count" pos="0,-50" width="70" height="26" text="Test" font_size="24" justify="right" effect="outline"/>
+<label depth="5" name="timer" pos="36,-36" width="70" height="26" font_size="24" justify="center" pivot="center" color="[beige]" effect="outline" effect_distance="1,1" effect_color="0,0,0,255"/>
+<sprite depth="6" name="overlay" width="72" height="72" color="32,32,32,128" type="sliced"/>
+<sprite depth="6" name="cancel" sprite="ui_game_symbol_x" width="72" height="72" color="255,0,0,0" type="sliced" visible="false" foregroundlayer="true"/>
+</rect>
+</recipe_stack>
+</append>
+
+<remove xpath="/controls/active_buff_entry"/>
+<append xpath="/controls">
+<active_buff_entry>
+<panel height="45" controller="ActiveBuffEntry" width="45" style="press" sound="[recipe_click]" on_hover="false" disableautobackground="true" on_scroll="false" sound_play_on_hover="[default_hover]">
+<sprite depth="3" name="background" color="[transparent]" height="45" width="45" pos="0,0" globalopacitymod="0.1"/>
+<sprite depth="10" name="Icon" sprite="{bufficon|once}" color="{buffcolor}" style="icon32px" pos="5,-5"/>
+</panel>
+</active_buff_entry>
+</append>
+
+<remove xpath="/controls/equipment_stack_sdcs"/>
+<append xpath="/controls">
+<equipment_stack_sdcs>
+<rect depth="1" controller="EquipmentStack" style="itemStack, hover" tooltip="test">
+<sprite depth="2" name="backgroundMain" sprite="ui_ToolBarBarsHover" pos="-3,3" width="83" height="83" color="[black]" type="sliced" fillcenter="false"/>
+<sprite depth="3" name="background" sprite="ui_ToolBarBarsHover" width="78" height="78" color="{selectionbordercolor}" type="sliced" fillcenter="false"/>
+<sprite depth="2" name="highlightOverlay" width="76" height="76" color="[transparent]" pos="1,-1" type="sliced" globalopacity="true"/>
+<sprite depth="6" name="itemIcon" width="74" height="74" atlas="ItemIconAtlas" sprite="ui_ChallengeSurvivorShort_icon" pos="39,-39" pivot="center" foregroundlayer="true"/>
+<sprite depth="8" name="lockTypeIcon" width="34" height="34" sprite="" pos="2,-12" foregroundlayer="true"/>
+<sprite depth="3" name="durabilityBackground" width="74" height="10" color="[darkGrey]" type="sliced" pos="2, -66" foregroundlayer="true"/>
+<filledsprite depth="4" name="durability" width="74" height="10" color="[transparent]" type="filled" pos="2, -66" foregroundlayer="true"/>
+<label depth="7" name="stackValue" pos="0,-50" width="78" height="28" text="" font_size="26" justify="center"/>
+</rect>
+</equipment_stack_sdcs>
+</append>
+
+<remove xpath="/controls/item_action_entry"/>
+<append xpath="/controls">
+<item_action_entry>
+<rect height="43" pos="0,-100" controller="ItemActionEntry" disabled_font_color="[disabledLabelColor]" default_font_color="[labelColor]" default_background_color="[mediumGrey]">
+<sprite depth="3" name="background" color="[mediumGrey]" type="sliced" on_press="true" on_hover="true" width="147" globalopacitymod="0.1" sound_play_on_hover="[default_hover]" gamepad_selectable="false"/>
+<sprite depth="4" name="Icon" sprite="{actionicon}" size="24,24" color="{statuscolor}" pos="2,-10" foregroundlayer="true"/>
+<label depth="4" name="Name" pos="32,-22" width="78" height="26" text="{actionname}" font_size="26" color="{statuscolor}" effect="shadow" pivot="left"/>
+<gamepad_icon depth="4" name="gamepadIcon" size="44,44" pos="146,-22" pivot="Right" visible="{inspectheld}"/>
+<label depth="4" name="keyboardButton" pos="145,-22" width="36" height="26" text="&lt;W&gt;" font_size="26" color="{statuscolor}" effect="shadow" pivot="right" justify="center"/>
+</rect>
+</item_action_entry>
+</append>
+
+<append xpath="/controls">
+<zhItem_action_entry>
+<rect height="35" controller="ItemActionEntry" disabled_font_color="[disabledLabelColor]" default_font_color="[labelColor]" default_background_color="[mediumGrey]">
+<sprite depth="3" name="background" color="[mediumGrey]" type="sliced" on_press="true" on_hover="true" width="147" globalopacitymod="0.1" sound_play_on_hover="[default_hover]" gamepad_selectable="false"/>
+<sprite depth="4" name="Icon" sprite="{actionicon}" size="22,22" color="{statuscolor}" pos="2,-35" foregroundlayer="true"/>
+<label depth="4" name="Name" pos="32,-47" width="78" height="26" text="{actionname}" font_size="24" color="{statuscolor}" effect="shadow" pivot="left"/>
+<gamepad_icon depth="4" name="gamepadIcon" size="42,42" pos="146,-47" pivot="Right" visible="{inspectheld}"/>
+<label depth="4" name="keyboardButton" pos="145,-47" width="34" height="24" text="&lt;W&gt;" font_size="26" color="{statuscolor}" effect="shadow" pivot="right" justify="center"/>
+</rect>
+</zhItem_action_entry>
+</append>
+
+
+<append xpath="/controls">
+<creativeItem_stack controller="ItemStack" on_scroll="false" allow_dropping="true" prefix_id="false" show_favorites="false">
+<rect controller="${controller}" style="itemStack, hover" collider_scale="1.0" on_scroll="${on_scroll}" allow_dropping="${allow_dropping}" prefix_id="${prefix_id}" show_favorites="${show_favorites}" tooltip="{tooltip}">
+<sprite depth="2" name="backgroundMain" sprite="ui_BuffPanel" pos="-3,3" width="78" height="78" color="[mediumGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="3" name="background" sprite="ui_BuffPanel" width="73" height="73" color="{selectionbordercolor}" type="sliced" globalopacity="true" fillcenter="false"/>
+<sprite depth="2" name="highlightOverlay" width="72" height="72" sprite="ui_BuffPanelHover" color="[mediumGrey]" pos="0,0" type="sliced" globalopacity="true"/>
+<texture depth="3" name="backgroundTexture" material="Materials/Transparent Colored" size="73,73" globalopacity="true"/>
+<sprite depth="8" name="favoriteIcon" width="24" height="24" sprite="server_favorite" pos="2,-2" foregroundlayer="true" visible="{isfavorite}"/>
+<sprite depth="6" name="itemIcon" width="64" height="64" atlas="ItemIconAtlas" sprite="{itemicon}" pos="35,-35" pivot="center" foregroundlayer="true" color="{iconcolor}"/>
+<sprite depth="8" name="lockTypeIcon" width="24" height="24" sprite="{locktypeicon}" pos="2,-2" foregroundlayer="true"/>
+<sprite depth="8" name="itemtypeicon" width="24" height="24" sprite="ui_game_symbol_{itemtypeicon}" pos="2,-2" foregroundlayer="true" visible="{hasitemtypeicon}" color="{itemtypeicontint}"/>
+<sprite depth="3" name="durabilityBackground" width="70" height="10" sprite="menu_empty3px" color="[darkGrey]" type="sliced" pos="1, -60" foregroundlayer="true" visible="{hasdurability}"/>
+<sprite name="itemBackgroundDurability" depth="5" pos="35,-35" width="65" height="65" sprite="quality_background" pivot="center" color="{durabilitycolor}" globalopacitymod="0.9" visible="{hasdurability}"/>
+<filledsprite depth="4" name="durability" width="70" height="10" sprite="menu_empty2px" color="{durabilitycolor}" fill="{durabilityfill}" type="filled" pos="1, -60" foregroundlayer="true" visible="{hasdurability}"/>
+<sprite depth="5" name="disabledOverlay" width="72" height="72" color="[darkGrey_half_alpha]" pos="1,-1" type="sliced" visible="false"/>
+<label depth="7" name="stackValue" pos="-2,-45" width="70" height="28" text="{itemcount}" font_size="26" effect="outline" justify="{#hasdurability ? 'Center' : 'Right'}"/>
+<label depth="7" name="timer" pos="35,-38" width="70" height="24" font_size="24" justify="center" pivot="center" color="[beige]" effect="outline" effect_distance="1,1" effect_color="0,0,0,255"/>
+<sprite depth="9" name="cancel" sprite="ui_game_symbol_x" width="70" height="70" color="255,0,0,255" type="sliced" visible="false" foregroundlayer="true"/>
+<sprite depth="13" name="assembleIcon" size="40,40" sprite="{stacklockicon}" color="{stacklockcolor}" visible="{isassemblelocked}" pos="14,-14" foregroundlayer="true"/>
+<sprite depth="14" name="quickswapIcon" size="30,30" sprite="server_refresh" pos="40,-2" foregroundlayer="true"/>
+</rect>
+</creativeItem_stack>
+</append>
+
+<append xpath="/controls">
+<textfield depth="3" pos="0,0" width="150" height="32" value="" active_text_color="[labelColor]" caret_color="[labelColor]" selection_color="[mediumGrey_half_alpha]" character_limit="0" validation="none" backgroundcolor="[black]" on_hover="false" on_scroll="false" virtual_keyboard_prompt="" pivot="topleft" visible="true" on_return="submit" tooltip_key="" search_field="false" password_field="false" clear_button="false" focus_on_open="false" clear_on_open="false" close_group_on_tab="false" open_vk_on_open="false" foregroundlayer="false" justify="center" overflow="ShrinkContent" max_line_count="0" font_face="ReferenceFont" crispness="Never">
+<panel name="${name}" depth="${depth}" controller="TextInput" pos="${pos}" width="${password_field? width-height-10 : width}" height="${height}" value="${value}" active_text_color="${active_text_color}" caret_color="${caret_color}" selection_color="${selection_color}" character_limit="${character_limit}" validation="${validation}" backgroundcolor="${backgroundcolor}" style="press, select" on_hover="${on_hover}" on_scroll="${on_scroll}" snapCursor="true" virtual_keyboard_prompt="${virtual_keyboard_prompt}" disableautobackground="true" pivot="${pivot}" visible="${visible}" on_return="${on_return}" tooltip_key="${tooltip_key}" search_field="${search_field}" password_field="${password_field}" clear_button="${clear_button}" focus_on_open="${focus_on_open}" clear_on_open="${clear_on_open}" close_group_on_tab="${close_group_on_tab}" open_vk_on_open="${open_vk_on_open}">
+<sprite depth="0" name="background" color="${backgroundcolor}" type="sliced" pivot="${pivot}" foregroundlayer="${foregroundlayer}" width="${password_field ? width-height-10 : width}"/>
+<label depth="1" name="text" justify="${justify}" font_size="${Defined(font_size) ? font_size : height}" pivot="${pivot}" overflow="${overflow}" max_line_count="${max_line_count}" font_face="${font_face}" crispness="${crispness}" width="${width - (password_field ? 10+height : 0) - (clear_button ? 6+min(height,36) : 0)}"/>
+<button name="btnShowPassword" pos="${Round(width-height/2-5,0)},-${Round(height/2,0)}" width="${height-2}" height="${height-2}" sprite="ui_game_symbol_stealth" defaultcolor="180,180,180" hovercolor="[white]" selectedcolor="[selectedColor]" foregroundlayer="true" type="simple" hoverscale="1.1" pivot="center" tooltip_key="xuiShowPassword" selected="{showpassword}" visible="{passwordfield}"/>
+<button depth="5" name="btnClearInput" pos="${password_field ? width-height-Round(min(height,36)/2,0)-12 : width-Round(min(height,36)/2,0)-3},-${Round(height/2,0)}" width="${4+min(height,36)}" height="${min(height,36)-4}" pivot="center" sprite="ui_game_symbol_clear_textfield" hoverscale="1.1" tooltip_key="xuiClearTextInput" visible="{clearbutton}"/>
+</panel>
+</textfield>
+</append>
+
+<append xpath="/controls">
+<zh_button_mainmenubutton depth="3" pos="0,0" width="200" height="32" pivot="left" caption="" caption_key="" enabled_font_color="[labelColor]" disabled_font_color="[disabledLabelColor]" tooltip_key="" visible="true" enabled="true" sound="[default_click]">
+<rect name="${name}" depth="${depth}" pos="${pos}" width="${width}" height="${height}" font_size_default="${height-32}" enabled_font_color="[white]" disabled_font_color="[mediumGrey]" controller="SimpleButton" visible="${visible}" button_enabled="${enabled}">
+<button name="clickable" pos="10,${Round(-height/2,0)}" sprite="menu_ButtonTx" defaultcolor="[mediumGrey]" selectedsprite="menu_ButtonTxSelected" hoversprite="menu_ButtonTxSelected" hovercolor="[white]" hoverscale="1.1" pivot="${pivot}" tooltip_key="${tooltip_key}" sound_play_on_hover="[default_hover]" sound="${sound}"/>
+<label name="btnLabel" depth="2" pos="10,${Round(-2-height/2,0)}" width="${width-40}" height="${height-33}" text="${caption}" text_key="${caption_key}" font_size="${height-34}" upper_case="true" pivot="${pivot}" justify="center"/>
+</rect>
+</zh_button_mainmenubutton>
+<zh_button_maintabbutton depth="3" pos="0,0" width="200" height="32" enabled_font_color="[labelColor]" disabled_font_color="[disabledLabelColor]" visible="true" enabled="true" bordersprite="menu_empty2px" bordercolor="[black]" pivot="left" defaultsprite="menu_empty" defaultcolor="[mediumGrey]" hoversprite="ui_MenuTabButton_PcR" hovercolor="[white]" selectedsprite="ui_MenuTabButton_PcR" selectedcolor="[mediumGrey]" foregroundlayer="true" tooltip_key="" disabled_tooltip_key="" sound="[default_click]" justify="center" caption="" caption_key="" font_size="28" upper_case="false" parse_actions="false">
+<rect name="${name}" depth="${depth}" pos="${pos}" width="${width}" height="${height}" enabled_font_color="[white]" disabled_font_color="[mediumGrey]" controller="SimpleButton" visible="${visible}" button_enabled="${enabled}">
+<sprite depth="1" name="border" sprite="ui_MenuTabButton_PcR" pos="0,${Round(-height/2,0)}" color="${bordercolor}" type="sliced" fillcenter="false" foregroundlayer="true" pivot="${pivot}"/>
+<button name="clickable" pos="0,${Round(-height/2,0)}" sprite="ui_MenuTabButton_PcR" defaultcolor="${defaultcolor}" disabledcolor="[darkGrey]" hoversprite="ui_MenuTabButtonSelected_PcR" hovercolor="${hovercolor}" selectedsprite="ui_MenuTabButtonSelected_PcR" selectedcolor="${selectedcolor}" foregroundlayer="${foregroundlayer}" type="sliced" hoverscale="1.0" pivot="${pivot}" tooltip_key="${tooltip_key}" disabled_tooltip_key="${disabled_tooltip_key}" sound_play_on_hover="[default_hover]" sound="${sound}"/>
+<label depth="2" name="btnLabel" width="${width}" height="${height-2}" pos="0,${Round(-height/2,0)}" justify="${justify}" text="${caption}" text_key="${caption_key}" effect="outline" pivot="${pivot}" font_size="${font_size}" upper_case="${upper_case}" parse_actions="${parse_actions}"/>
+</rect>
+</zh_button_maintabbutton>
+</append>
+
+<remove xpath="/controls/backpack_item_stack"/>
+<remove xpath="/controls/item_stack"/>
+<append xpath="/controls">
+<backpack_item_stack controller="Quartz.ItemStack, Quartz" on_scroll="false" allow_dropping="true" prefix_id="false">
+<rect controller="${controller}" style="zh_item_stack, hover" collider_scale="1.0" on_scroll="${on_scroll}" allow_dropping="${allow_dropping}" prefix_id="${prefix_id}" tooltip="{tooltip}" enabled="{# !userlockmode}">
+<sprite depth="2" name="backgroundMain" sprite="ui_BuffPanel" pos="${Round(-3-(-3*(100-cell_width/68*100)/100),0)},${Round(3-(3*(100-cell_height/68*100)/100),0)}" width="${Round(70-(70*(100-cell_width/68*100)/100),0)}" height="${Round(70-(70*(100-cell_height/68*100)/100),0)}" color="[black]" type="sliced" fillcenter="false"/>
+<sprite depth="3" name="background" sprite="ui_BuffPanel" width="${Round(65-(65*(100-cell_width/68*100)/100),0)}" height="${Round(65-(65*(100-cell_height/68*100)/100),0)}" color="{selectionbordercolor}" type="sliced" globalopacity="true" fillcenter="false"/>
+<sprite depth="2" name="highlightOverlay" width="${Round(64-(64*(100-cell_width/68*100)/100),0)}" height="${Round(64-(64*(100-cell_height/68*100)/100),0)}" color="{backgroundcolor}" pos="0,0" type="sliced" globalopacity="true"/>
+<texture depth="3" name="backgroundTexture" material="Materials/Transparent Colored" size="${Round(65-(65*(100-cell_width/68*100)/100),0)},${Round(65-(65*(100-cell_height/68*100)/100),0)}" globalopacity="true"/>
+<sprite depth="6" name="itemIcon" width="${Round(64-(64*(100-cell_width/68*100)/100),0)}" height="${Round(64-(64*(100-cell_height/68*100)/100),0)}" atlas="ItemIconAtlas" sprite="{itemicon}" pos="${Round(35-(35*(100-cell_width/68*100)/100),0)},${Round(-30-(-30*(100-cell_height/68*100)/100),0)}" pivot="center" foregroundlayer="true" color="{iconcolor}"/>
+<sprite depth="8" name="lockTypeIcon" width="24" height="${Round(24-(24*(100-cell_height/68*100)/100),0)}" sprite="{locktypeicon}" pos="2,-2" foregroundlayer="true"/>
+<sprite depth="8" name="itemtypeicon" width="${Round(24-(24*(100-cell_width/68*100)/100),0)}" height="${Round(24-(24*(100-cell_height/68*100)/100),0)}" sprite="ui_game_symbol_{itemtypeicon}" pos="${Round(2-(2*(100-cell_width/68*100)/100),0)},${Round(-2-(-2*(100-cell_height/68*100)/100),0)}" foregroundlayer="true" visible="{hasitemtypeicon}" color="{itemtypeicontint}"/>
+<sprite depth="3" name="durabilityBackground" width="${Round(60-(60*(100-cell_width/68*100)/100),0)}" height="10" sprite="menu_empty3px" color="[darkGrey]" type="sliced" pos="${Round(2-(2*(100-cell_width/68*100)/100),0)}, ${Round(-52-(-52*(100-cell_height/68*100)/100),0)}" foregroundlayer="true" visible="{hasdurability}"/>
+<sprite name="itemBackgroundDurability" depth="5" pos="${Round(35-(35*(100-cell_width/68*100)/100),0)},${Round(-30-(-30*(100-cell_height/68*100)/100),0)}" width="${Round(64-(64*(100-cell_width/68*100)/100),0)}" height="${Round(64-(64*(100-cell_height/68*100)/100),0)}" sprite="quality_background" pivot="center" color="{durabilitycolor}" globalopacitymod="0.9" visible="{hasdurability}"/>
+<filledsprite depth="4" name="durability" width="${Round(60-(60*(100-cell_width/68*100)/100),0)}" height="10" sprite="menu_empty2px" color="{durabilitycolor}" fill="{durabilityfill}" type="filled" pos="${Round(2-(2*(100-cell_width/68*100)/100),0)}, ${Round(-52-(-52*(100-cell_height/68*100)/100),0)}" foregroundlayer="true" visible="{hasdurability}"/>
+<sprite depth="5" name="disabledOverlay" width="${Round(64-(64*(100-cell_width/68*100)/100),0)}" height="${Round(64-(64*(100-cell_height/68*100)/100),0)}" color="[darkGrey_half_alpha]" pos="${Round(1-(1*(100-cell_width/68*100)/100),0)},${Round(-1-(-1*(100-cell_width/68*100)/100),0)}" type="sliced" visible="false"/>
+<label depth="7" name="stackValue" pos="${Round(0-(0*(100-cell_width/68*100)/100),0)},${Round(-37-(-37*(100-cell_height/68*100)/100),0)}" width="${Round(62-(62*(100-cell_width/68*100)/100),0)}" height="${Round(28-(28*(100-cell_height/68*100)/100),0)}" text="{itemcount}" font_size="${Round(26-(26*(100-cell_height/68*100)/100),0)}" effect="outline" justify="{#hasdurability ? 'Center' : 'Right'}"/>
+<label depth="7" name="timer" pos="${Round(35-(35*(100-cell_width/68*100)/100),0)},${Round(-33-(-33*(100-cell_height/68*100)/100),0)}" width="${Round(62-(62*(100-cell_width/68*100)/100),0)}" height="${Round(24-(24*(100-cell_height/68*100)/100),0)}" font_size="${Round(24-(24*(100-cell_height/68*100)/100),0)}" justify="center" pivot="center" effect="outline" color="[beige]"/>
+<sprite depth="9" name="cancel" sprite="ui_game_symbol_x" width="${Round(62-(62*(100-cell_width/68*100)/100),0)}" height="${Round(62-(62*(100-cell_height/68*100)/100),0)}" color="255,0,0,255" type="sliced" visible="false" foregroundlayer="true"/>
+<sprite depth="13" name="assembleIcon" size="${Round(35-(35*(100-cell_width/68*100)/100),0)},${Round(35-(35*(100-cell_height/68*100)/100),0)}" sprite="{stacklockicon}" color="{stacklockcolor}" visible="{isassemblelocked}" pos="${Round(14-(14*(100-cell_width/68*100)/100),0)},${Round(-14-(-14*(100-cell_height/68*100)/100),0)}" foregroundlayer="true"/>
+<button name="rectSlotLock" depth="15" style="press, hover" width="${Round(65-(65*(100-cell_width/68*100)/100),0)}" height="${Round(65-(65*(100-cell_height/68*100)/100),0)}" visible="{userlockmode}" sprite="" hoverscale="1" use_selection_box="true">
+<sprite depth="16" name="button" width="${Round(24-(24*(100-cell_width/68*100)/100),0)}" height="${Round(24-(24*(100-cell_height/68*100)/100),0)}" sprite="{# userlockedslot ? 'ui_game_symbol_lock' : 'ui_game_symbol_unlock' }" pos="${Round(50-(50*(100-cell_width/68*100)/100),0)}, ${Round(-14-(-14*(100-cell_height/68*100)/100),0)}" style="icon32px" pivot="center" color="{# userlockedslot ? '222,206,163' : '255,255,255' }"/>
+</button>
+<sprite depth="15" name="iconSlotLock" width="${Round(20-(20*(100-cell_width/68*100)/100),0)}" height="${Round(20-(20*(100-cell_height/68*100)/100),0)}" sprite="ui_game_symbol_lock" pos="${Round(50-(50*(100-cell_width/68*100)/100),0)}, ${Round(-14-(-14*(100-cell_height/68*100)/100),0)}" style="icon32px" pivot="center" visible="{# userlockedslot and !userlockmode}" color="[lightGrey]"/>
+</rect>
+</backpack_item_stack>
+<item_stack controller="Quartz.ItemStack, Quartz" on_scroll="false" allow_dropping="true" prefix_id="false" show_favorites="false">
+<rect controller="${controller}" style="zh_item_stack, hover" collider_scale="1.0" on_scroll="${on_scroll}" allow_dropping="${allow_dropping}" prefix_id="${prefix_id}" show_favorites="${show_favorites}" tooltip="{tooltip}">
+<sprite depth="2" name="backgroundMain" sprite="ui_BuffPanel" pos="-3,3" width="78" height="78" color="[black]" type="sliced" fillcenter="false"/>
+<sprite depth="3" name="background" sprite="ui_BuffPanel" width="73" height="73" color="{selectionbordercolor}" type="sliced" globalopacity="true" fillcenter="false"/>
+<sprite depth="2" name="highlightOverlay" width="72" height="72" color="{backgroundcolor}" pos="0,0" type="sliced" globalopacity="true"/>
+<texture depth="3" name="backgroundTexture" material="Materials/Transparent Colored" size="73,73" globalopacity="true"/>
+<sprite depth="8" name="favoriteIcon" width="24" height="24" sprite="server_favorite" pos="2,-2" foregroundlayer="true" visible="{isfavorite}"/>
+<sprite depth="6" name="itemIcon" width="64" height="64" atlas="ItemIconAtlas" sprite="{itemicon}" pos="35,-35" pivot="center" foregroundlayer="true" color="{iconcolor}"/>
+<sprite depth="8" name="lockTypeIcon" width="24" height="24" sprite="{locktypeicon}" pos="2,-2" foregroundlayer="true"/>
+<sprite depth="8" name="itemtypeicon" width="24" height="24" sprite="ui_game_symbol_{itemtypeicon}" pos="2,-2" foregroundlayer="true" visible="{hasitemtypeicon}" color="{itemtypeicontint}"/>
+<sprite depth="3" name="durabilityBackground" width="70" height="10" sprite="menu_empty3px" color="[darkGrey]" type="sliced" pos="1, -60" foregroundlayer="true" visible="{hasdurability}"/>
+<filledsprite depth="4" name="durability" width="70" height="10" sprite="menu_empty2px" color="{durabilitycolor}" fill="{durabilityfill}" type="filled" pos="1, -60" foregroundlayer="true" visible="{hasdurability}"/>
+<sprite depth="5" name="disabledOverlay" width="72" height="72" color="[darkGrey_half_alpha]" pos="1,-1" type="sliced" visible="false"/>
+<label depth="7" name="stackValue" pos="-2,-45" width="70" height="28" text="{itemcount}" font_size="26" effect="outline" justify="{#hasdurability ? 'Center' : 'Right'}"/>
+<label depth="7" name="timer" pos="35,-38" width="70" height="24" font_size="24" justify="center" pivot="center" color="[beige]" effect="outline" effect_distance="1,1" effect_color="0,0,0,255"/>
+<sprite depth="9" name="cancel" sprite="ui_game_symbol_x" width="70" height="70" color="255,0,0,255" type="sliced" visible="false" foregroundlayer="true"/>
+<sprite depth="13" name="assembleIcon" size="40,40" sprite="{stacklockicon}" color="{stacklockcolor}" visible="{isassemblelocked}" pos="14,-14" foregroundlayer="true"/>
+<sprite depth="14" name="quickswapIcon" size="30,30" sprite="server_refresh" pos="40,-2" foregroundlayer="true"/>
+</rect>
+</item_stack>
+</append>
+
+<remove xpath="/controls/waypoint_entry"/>
+<append xpath="/controls">
+<waypoint_entry>
+<rect width="348" height="43" pos="6,-98" controller="MapWaypointListEntry">
+<sprite depth="3" name="backgroundMain" sprite="ui_StatBarPcRXP_Bar" pos="-3,3" width="354" height="49" color="[black]" type="sliced" fillcenter="false"/>
+<sprite depth="1" name="background" pos="-1,1" height="45" width="350" color="[darkGrey]" type="sliced" on_hover="true" style="press,scroll" sound="[recipe_click]" sound_play_on_hover="[default_hover]" gamepad_selectable="false"/>
+<sprite depth="4" name="Icon" sprite="ui_game_symbol_pen" style="icon32px" pos="8,-3" foregroundlayer="true"/>
+<sprite depth="4" name="Tracking" sprite="ui_game_symbol_check" style="icon32px" pos="48,-3" foregroundlayer="true"/>
+<label depth="4" name="Name" pos="180,-20" width="180" height="30" text="Name" font_size="28" justify="center" pivot="center"/>
+<label depth="4" name="Distance" pos="312,-20" width="60" height="30" text="0.7KM" font_size="28" justify="center" pivot="center"/>
+</rect>
+</waypoint_entry>
+</append>
+
+<remove xpath="/controls/invites_entry"/>
+<append xpath="/controls">
+<invites_entry>
+<rect controller="MapInvitesListEntry" width="348" height="43" pos="6,-98">
+<sprite depth="3" name="backgroundMain" sprite="ui_StatBarPcRXP_Bar" pos="-3,3" width="354" height="49" color="[black]" type="sliced" fillcenter="false"/>
+<sprite depth="1" name="background" pos="-1,1" height="45" width="350" color="[darkGrey]" type="sliced" on_hover="true" style="press" sound="[recipe_click]" gamepad_selectable="false"/>
+<sprite depth="4" name="Icon" sprite="ui_game_symbol_pen" style="icon32px" pos="8,-3" foregroundlayer="true"/>
+<label depth="4" name="Name" pos="160,-20" width="200" height="28" text="Name" font_size="28" justify="center" pivot="center"/>
+<label depth="4" name="Distance" pos="312,-20" width="60" height="28" text="0.7KM" font_size="28" justify="center" pivot="center"/>
+</rect>
+</invites_entry>
+</append>
+
+<remove xpath="/controls/skill_attribute_level"/>
+<append xpath="/controls">
+<skill_attribute_level>
+<panel disableautobackground="true" controller="SkillAttributeLevel" width="${width}" height="${height}" style="hover, scroll" color_bg_bought="140,130,100,255" color_bg_available="[zhlightGrey]" color_bg_locked="[zhdarkGrey]" color_lbl_available="[white]" color_lbl_locked="[zhlightGrey]" color_lbl_nerfed="204,17,17" color_lbl_buffed="17,204,17" visible="{nothiddenbypager}">
+<sprite depth="2" name="backgroundMain" sprite="ui_StatBarPcRXP_Bar" pos="0,${-height}" height="2" color="[mediumGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="1" name="backgroundMainColor" sprite="ui_StatBarPcRXP_Bar" pos="2,0" width="${width-4}" type="sliced" fillcenter="true" color="{color_bg}" visible="{hasentry}"/>
+<label depth="3" pos="5,-${Round(height/2,0)}" text="{level}" pivot="left" justify="center" width="65" font_size="30" color="{color_fg}" visible="{hasentry}"/>
+<label depth="3" pos="77,-${Round(height/2,0)}" text="{text}" pivot="left" justify="left" width="493" font_size="24" color="{color_fg}" visible="{hasentry}"/>
+<button depth="3" name="btnBuy" pos="${width-36},-${Round(height/2,0)}" style="icon30px, press, hover" sprite="{buyicon}" pivot="center" tooltip="{buytooltip}" sound="[paging_click]" defaultcolor="{buycolor}" manualcolors="true" visible="{buyvisible}"/>
+</panel>
+</skill_attribute_level>
+</append>
+
+<remove xpath="/controls/skill_entry"/>
+<append xpath="/controls">
+<skill_entry>
+<panel disableautobackground="true" depth="2" width="645" height="46" controller="SkillEntry" style="press, hover, scroll" enabled_color="[iconColor]" disabled_color="[disabledLabelColor]" row_color="[zhdarkGrey]" hover_color="[mediumGrey]" sound="[recipe_click]" sound_play_on_hover="[default_hover]">
+<sprite depth="2" name="backgroundMain" sprite="ui_StatBarPcRXP_Bar" pos="-3,2" width="637" color="[mediumGrey]" height="48" type="sliced" fillcenter="false"/>
+<sprite depth="1" color="{rowstatecolor}" sprite="{rowstatesprite}" width="637" height="45" type="sliced"/>
+<sprite depth="2" name="groupIcon" sprite="{groupicon}" style="icon32px" pos="6, -3" color="{statuscolor}" foregroundlayer="true"/>
+<label width="386" name="groupName" pos="44,-20" pivot="left" depth="2" text="{groupname}" color="{statuscolor}"/>
+<sprite depth="2" pos="486,-19" sprite="ui_game_symbol_lock" visible="{islocked}" style="icon32px" pivot="center" color="{statuscolor}" foregroundlayer="true"/>
+<label width="125" pos="486,-20" depth="2" text="{grouplevel}" visible="{isnotlocked}" pivot="center" justify="center" color="{statuscolor}"/>
+<sprite depth="2" pos="593,-19" sprite="ui_game_symbol_check" visible="{cannotpurchase}" style="icon32px" pivot="center" color="{statuscolor}" foregroundlayer="true"/>
+<label width="90" pos="593,-20" depth="2" text="{grouppointcost}" visible="{canpurchase}" pivot="center" justify="center" color="{statuscolor}"/>
+</panel>
+</skill_entry>
+</append>
+
+<remove xpath="/controls/skill_perk_level"/>
+<append xpath="/controls">
+<skill_perk_level>
+<panel disableautobackground="true" controller="SkillPerkLevel" width="${width}" height="${height}" style="hover, scroll" color_bg_bought="140,130,100,255" color_bg_available="[zhlightGrey]" color_bg_locked="[zhdarkGrey]" color_lbl_available="[white]" color_lbl_locked="[zhlightGrey]" color_lbl_nerfed="204,17,17" color_lbl_buffed="17,204,17" visible="{nothiddenbypager}">
+<sprite depth="2" name="backgroundMain" sprite="ui_StatBarPcRXP_Bar" pos="0,${-height}" height="2" color="[mediumGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="1" name="backgroundMainColor" sprite="ui_StatBarPcRXP_Bar" pos="2,0" width="${width-4}" type="sliced" fillcenter="true" color="{color_bg}" visible="{hasentry}"/>
+<label depth="3" pos="5,-${Round(height/2,0)}" text="{level}" pivot="left" justify="center" width="65" font_size="48" color="{color_fg}" visible="{hasentry}"/>
+<label depth="3" pos="77,-${Round(height/2,0)}" text="{text}" pivot="left" justify="left" width="493" font_size="40" color="{color_fg}" visible="{hasentry}"/>
+<button depth="3" name="btnBuy" pos="${width-36},-${Round(height/2,0)}" style="icon30px, press, hover" sprite="{buyicon}" pivot="center" tooltip="{buytooltip}" sound="[paging_click]" defaultcolor="{buycolor}" manualcolors="true" visible="{buyvisible}"/>
+</panel>
+</skill_perk_level>
+</append>
+
+<remove xpath="/controls/skill_book_level"/>
+<append xpath="/controls">
+<skill_book_level>
+<panel disableautobackground="true" controller="SkillBookLevel" width="${width}" height="${height}" style="hover" color_bg_bought="140,130,100,255" color_bg_available="[zhlightGrey]" color_bg_locked="[zhdarkGrey]" color_lbl_available="[white]" color_lbl_locked="[zhlightGrey]" color_lbl_nerfed="204,17,17" color_lbl_buffed="17,204,17">
+<sprite depth="2" name="backgroundMain" sprite="ui_StatBarPcRXP_Bar" pos="0,${-height}" height="2" color="[mediumGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="1" name="backgroundMainColor" sprite="ui_StatBarPcRXP_Bar" pos="2,0" width="${width-4}" type="sliced" fillcenter="true" color="{color_bg}" visible="{hasentry}"/>
+<label depth="3" pos="-6,-${Round(height/2,0)}" text="{level}" pivot="left" justify="center" width="65" font_size="48" color="{color_fg}" visible="{hasentry}"/>
+<sprite depth="3" pos="27,-${Round(height/2,0)}" style="icon30px" sprite="ui_game_symbol_perk" pivot="center" visible="{iscomplete}"/>
+<label depth="3" pos="66,-${Round(height/2,0)}" text="{text}" pivot="left" justify="left" width="504" font_size="24" color="{color_fg}" visible="{hasentry}"/>
+<sprite depth="3" name="btnBuy" pos="${width-32},-${Round(height/2,0)}" style="icon30px" sprite="{buyicon}" pivot="center" color="{buycolor}" visible="{buyvisible}" gamepad_selectable="false"/>
+</panel>
+</skill_book_level>
+</append>
+
+<remove xpath="/controls/skill_crafting_entry"/>
+<append xpath="/controls">
+<skill_crafting_entry>
+<panel disableautobackground="true" controller="SkillCraftingInfoEntry" width="${width}" height="${height}" style="press, hover, scroll" color_bg_bought="140,130,100,255" color_bg_available="[zhlightGrey]" color_bg_locked="[zhdarkGrey]" color_lbl_available="[white]" color_lbl_locked="[zhlightGrey]" color_lbl_nerfed="204,17,17" color_lbl_buffed="17,204,17" visible="{nothiddenbypager}">
+<sprite depth="2" name="backgroundMain" sprite="ui_StatBarPcRXP_Bar" pos="0,${-height}" height="2" color="[mediumGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="2" name="background" sprite="ui_StatBarPcRXP_Bar" pos="2,1" width="${width-4}" height="${height}" color="[selectedColor]" type="sliced" globalopacity="true" fillcenter="false" visible="{show_selected}"/>
+<sprite depth="1" name="backgroundMainColor" sprite="ui_StatBarPcRXP_Bar" pos="2,0" width="${width-4}" type="sliced" fillcenter="true" color="{color_bg}" visible="{hasentry}"/>
+<sprite depth="6" name="itemIcon" width="64" height="64" atlas="{iconatlas}" sprite="{itemicon}" pos="35,-35" pivot="center" foregroundlayer="true" color="{itemcolor}"/>
+<label depth="3" pos="77,-${Round(height/2,0)}" text="{text}" pivot="left" justify="center" width="423" font_size="28" color="{color_fg}" visible="{hasentry}"/>
+<sprite depth="3" name="durabilityBackground" width="60" height="10" sprite="menu_empty3px" color="[darkGrey]" type="sliced" pos="6, -60" foregroundlayer="true" visible="{showquality}"/>
+<filledsprite depth="4" name="durability" width="60" height="10" sprite="menu_empty2px" color="{currentqualitycolor}" fill="1" type="filled" pos="6, -60" foregroundlayer="true" visible="{showquality}"/>
+<label depth="3" pos="560,-${Round(height/2,0)}" text="{nextpoints}" pivot="right" justify="center" width="65" font_size="28" color="{color_fg}" visible="{notcomplete}"/>
+<sprite depth="12" pos="610,-45" style="icon30px" sprite="ui_game_symbol_check" pivot="center" visible="{showcomplete}"/>
+<label depth="7" name="stackValue" pos="-2,-45" width="70" height="28" text="{currentqualitytext}" font_size="26" effect="outline" justify="Center" visible="{showquality}"/>
+<sprite depth="12" pos="55,-55" style="icon30px" sprite="ui_game_symbol_lock" pivot="center" visible="{showlock}"/>
+<sprite depth="3" name="durabilityBackground" width="50" height="10" sprite="menu_empty3px" color="[darkGrey]" type="sliced" pos="636,-65" pivot="right" foregroundlayer="true" visible="{notcompletequality}"/>
+<filledsprite depth="4" name="durability" width="50" height="10" sprite="menu_empty2px" color="{nextqualitycolor}" fill="1" type="filled" pos="636, -65" pivot="right" foregroundlayer="true" visible="{notcompletequality}"/>
+<label depth="7" name="stackValue" pos="645,-40" width="70" height="40" text="{nextqualitytext}" pivot="right" font_size="28" effect="outline" justify="Center" visible="{notcompletequality}"/>
+<sprite depth="12" pos="610,-40" style="icon30px" sprite="ui_game_symbol_unlock" pivot="center" visible="{notcompletenoquality}"/>
+</panel>
+</skill_crafting_entry>
+</append>
+
+<remove xpath="/controls/quest_entry"/>
+<append xpath="/controls">
+<quest_entry>
+<rect width="450" height="43" controller="QuestEntry" style="press, hover, scroll" enabled_color="[iconColor]" disabled_color="[disabledLabelColor]" row_color="[darkGrey]" hover_color="[mediumGrey]" sound="[recipe_click]" failed_color="255,0,0,255" complete_color="[disabledLabelColor]" finished_color="0,255,0,255" shared_color="[iconColor]" failed_icon="ui_game_symbol_x" complete_icon="ui_game_symbol_check" finished_icon="ui_game_symbol_check" shared_icon="ui_game_symbol_players" sound_play_on_hover="[default_hover]">
+<sprite depth="3" name="backgroundMain" sprite="ui_StatBarPcRXP_Bar" pos="-3,3" width="450" height="49" color="[mediumGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="1" name="background" pos="-1,1" height="45" width="446" color="{rowstatecolor}" sprite="{rowstatesprite}" type="sliced"/>
+<sprite depth="5" name="Icon" style="icon32px" pos="8,-3" foregroundlayer="true" sprite="{questicon}" color="{iconcolor}"/>
+<sprite depth="4" name="Tracking" sprite="ui_game_symbol_compass" style="icon32px" pos="52,-4" foregroundlayer="true" visible="{istracking}"/>
+<label depth="4" name="Name" pos="102,-8" width="230" height="30" text="{questname}" color="{textstatecolor}"/>
+<label depth="4" name="Distance" pos="340,-8" width="100" height="30" text="{distance}" justify="right"/>
+</rect>
+</quest_entry>
+</append>
+
+<remove xpath="/controls/challenge_entry"/>
+<append xpath="/controls">
+<challenge_entry>
+<rect width="58" height="58" style="itemStack, hover, scroll" collider_scale="1.0" sound_play_on_hover="[default_hover]" controller="ChallengeEntry" enabled_color="[labelColor]" disabled_color="[disabledLabelColor]" failed_color="255,0,0,255" row_color="[mediumGrey]" hover_color="[zhlightGrey]" selected_color="222,206,163,255">
+<sprite depth="2" name="highlightOverlay" width="54" height="54" color="[transparent]" pos="2,-2" type="sliced" globalopacity="true"/>
+<sprite depth="3" name="background" width="54" height="54" pos="2,-2" color="[transparent]" type="sliced" globalopacity="true" fillcenter="false"/>
+<sprite depth="6" name="itemIcon" width="48" height="48" sprite="{iconname}" color="{iconcolor}" pos="30,-30" pivot="center" foregroundlayer="true"/>
+<rect width="60" height="6" position="-1,-58" visible="{fillactive}">
+<filledsprite depth="4" name="BarContent" color="0,128,128,255" type="filled" fill="{fillamount}"/>
+</rect>
+</rect>
+</challenge_entry>
+</append>
+
+<remove xpath="/controls/challenge_list_entry"/>
+<append xpath="/controls">
+<challenge_list_entry>
+<rect width="650" style="scroll" height="113" controller="ChallengeGroupEntry">
+<sprite depth="1" name="background" pos="-1,1" height="111" width="647" color="[transparent]" type="sliced"/>
+<label depth="4" pos="10,-8" width="330" height="40" text="{groupname}" color="[white]"/>
+<label depth="4" pos="10,-8" width="630" height="40" text="Resets: Day {resetday}" color="[white]" justify="center" visible="{hasreset}"/>
+<label depth="4" pos="300,-8" width="330" height="40" text="{groupreward}" color="[selectedColor]" justify="right"/>
+<grid depth="6" name="newList" rows="1" cols="10" pos="10,-40" width="650" height="80" cell_width="63" cell_height="63" repeat_content="true" arrangement="horizontal" controller="ChallengeEntryList">
+<challenge_entry name="0"/>
+</grid>
+</rect>
+</challenge_list_entry>
+</append>
+
+<remove xpath="/controls/category_icon"/>
+<append xpath="/controls">
+<category_icon categoryname="" spritename="" displayname="" displayname_key="">
+<button name="categoryIcon" controller="CategoryEntry" categoryname="${categoryname}" spritename="${spritename}" displayname="${displayname}" displayname_key="${displayname_key}" depth="1" size="35,35" sprite="{categoryicon|once}" tooltip="{categorydisplayname|once}" pivot="center" collider_scale="1.5" sound="[paging_click]" use_selection_box="false"/>
+</category_icon>
+</append>
+
+<append xpath="/controls">
+<challengeSimplebutton depth="3" pos="0,0" width="200" height="32" enabled_font_color="[labelColor]" disabled_font_color="[disabledLabelColor]" visible="true" enabled="true" bordersprite="ui_zhTabButton" bordercolor="[transparent]" pivot="left" defaultsprite="ui_zhTabButton" defaultcolor="[mediumGrey]" hoversprite="ui_zhTabButtonHover" hovercolor="[white]" selectedsprite="ui_zhTabButtonHover" selectedcolor="[mediumGrey]" foregroundlayer="true" tooltip_key="" disabled_tooltip_key="" sound="[default_click]" justify="center" caption="" caption_key="" font_size="28" upper_case="false" parse_actions="false">
+<rect name="${name}" depth="${depth}" pos="${pos}" width="${width}" height="${height}" enabled_font_color="[white]" disabled_font_color="[mediumGrey]" controller="SimpleButton" visible="${visible}" button_enabled="${enabled}">
+<sprite depth="1" name="border" sprite="${bordersprite}" pos="0,${Round(-height/2,0)}" color="${bordercolor}" type="sliced" fillcenter="false" foregroundlayer="true" pivot="${pivot}"/>
+<button name="clickable" pos="0,${Round(-height/2,0)}" sprite="ui_zhTabButton" defaultcolor="${defaultcolor}" disabledcolor="[mediumGrey]" hoversprite="ui_zhTabButtonHover" selectedsprite="ui_zhTabButtonHover" foregroundlayer="${foregroundlayer}" type="sliced" hoverscale="1" pivot="${pivot}" tooltip_key="${tooltip_key}" disabled_tooltip_key="${disabled_tooltip_key}" sound_play_on_hover="[default_hover]" sound="${sound}"/>
+<label depth="2" name="btnLabel" width="${width}" height="${height-2}" pos="0,${Round(-height/2,0)}" justify="${justify}" text="${caption}" text_key="${caption_key}" effect="outline" pivot="${pivot}" font_size="${font_size}" upper_case="${upper_case}" parse_actions="${parse_actions}"/>
+</rect>
+</challengeSimplebutton>
+</append>
+
+<remove xpath="/controls/players_entry"/>
+<append xpath="/controls">
+<players_entry>
+<rect depth="1" width="1290" height="43" pos="-3,-6" disabled_color="" alternating_color="" controller="PlayersListEntry">
+<sprite depth="1" name="backgroundMain" sprite="ui_StatBarPcRXP_Bar" color="[mediumGrey]" pos="3,3" width="1292" height="49" type="sliced" fillcenter="false"/>
+<sprite name="background" sprite="ui_StatBarPcRXP_Bar" height="46" width="1290" pos="4,2" type="sliced"/>
+<rect depth="1" name="steamId" width="154" height="46" pos="6,-8">
+<label controller="PlayerName" on_press="true" depth="1" name="steamIdText" pos="4, -15" width="136" height="38" text="" font_size="26" pivot="left"/>
+<grid depth="0" pos="140, -6" cols="3" cell_width="20" cell_height="20" repeat_content="false" arrangement="horizontal">
+<sprite name="admin" width="20" height="20" color="[selectedColor]" sprite="ui_game_symbol_star" tooltip_key="xuiIsAdmin"/>
+<sprite name="twitch" width="20" height="20" color="[selectedColor]" sprite="ui_game_symbol_twitch_actions" tooltip_key="xuiTwitchEnabled"/>
+<sprite name="twitchDisabled" width="20" height="20" color="[selectedColor]" sprite="ui_game_symbol_twitch_action_disabled" tooltip_key="xuiTwitchDisabled"/>
+</grid>
+</rect>
+<rect depth="1" name="level" width="70" height="46" pos="213,-6">
+<label depth="1" name="levelText" pos="0,-18" height="38" text="" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="gamestage" width="100" height="46" pos="283,-6">
+<label depth="1" name="gamestageText" pos="0,-18" height="38" text="" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="party" width="70" height="46" pos="391,-6">
+<label depth="1" name="labelPartyIcon" pos="0,-15" height="38" text="--" font_size="26" justify="center" pivot="left"/>
+<button depth="1" name="iconPartyIcon" style="icon32px, press, hover" pos="34,-16" pivot="center" sprite="ui_game_symbol_party" color="[lightGrey]" disabledcolor="[disabledLabelColor]" sound="[craft_click]"/>
+</rect>
+<rect depth="1" name="allies" width="70" height="46" pos="469,-6">
+<label depth="1" name="labelAllyIcon" pos="0,-15" height="38" text="--" font_size="26" justify="center" pivot="left"/>
+<button depth="1" name="iconAllyIcon" style="icon32px, press, hover" pos="34,-16" pivot="center" sprite="ui_game_symbol_players" color="[lightGrey]" disabledcolor="[disabledLabelColor]" sound="[craft_click]"/>
+</rect>
+<rect depth="1" name="voice" width="80" height="46" pos="552,-6">
+<button depth="1" name="iconChat" style="icon32px, press, hover" pos="20,-16" sprite="ui_game_symbol_shape_text" pivot="center" color="[lightGrey]" sound="[craft_click]"/>
+<button depth="1" name="iconVoice" style="icon32px, press, hover" pos="60,-16" sprite="ui_game_symbol_mic" pivot="center" color="[lightGrey]" sound="[craft_click]"/>
+</rect>
+<rect depth="1" name="km" width="50" height="46" pos="638,-6">
+<label depth="1" name="labelDistanceWalked" pos="0,-18" height="38" text="-" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="map" width="80" height="86" pos="691,-6">
+<label depth="0" name="labelShowOnMap" pos="0,-15" height="38" text="--" font_size="26" justify="center" pivot="left"/>
+<button depth="1" name="iconShowOnMap" style="icon32px, press, hover" pos="40,-16" pivot="center" sprite="ui_game_symbol_map" color="[lightGrey]" disabledcolor="[disabledLabelColor]" sound="[craft_click]" tooltip="Show on Map" tooltip_key="lblShowOnMap"/>
+</rect>
+<rect depth="1" name="zombieKills" width="140" height="46" pos="765,-6">
+<label depth="1" name="zombieKillsText" pos="0,-18" height="38" text="" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="playerKills" width="140" height="46" pos="893,-6">
+<label depth="1" name="playerKillsText" pos="0,-18" height="38" text="" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="deaths" width="90" height="86" pos="1036,-6">
+<label depth="1" name="deathsText" pos="0,-18" height="38" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="ping" width="80" height="46" pos="1129,-6">
+<label depth="1" name="pingText" pos="0,-18" height="38" text="--" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="reportheader" width="80" height="46" pos="1212,-6" color="[darkGrey]" type="sliced">
+<label depth="0" name="labelReportPlayer" pos="0,-18" height="38" text="--" font_size="26" justify="center" pivot="left"/>
+<button depth="1" name="iconReportPlayer" style="icon32px, press, hover" pos="40,-16" pivot="center" sprite="ui_game_symbol_report" color="[lightGrey]" sound="[craft_click]" tooltip_key="xuiPlayersReportPlayer"/>
+</rect>
+</rect>
+</players_entry>
+</append>
+
+<remove xpath="/controls/players_header"/>
+<append xpath="/controls">
+<players_header>
+<panel name="header" depth="0" pos="-3,-3" height="746" disableautobackground="true">
+<sprite sprite="ui_StatBarPcRXP_Bar" color="[zhlightGrey]" type="sliced" pos="6,-46" height="49" width="1287"/>
+<rect depth="1" name="steamId" width="154" height="46" pos="6,-6">
+<label depth="1" name="text" pos="4,-63" height="42" text="STEAM ID" text_key="xuiSteamID" font_size="26" pivot="left"/>
+</rect>
+<rect depth="1" name="level" width="70" height="46" pos="213,-6">
+<label depth="1" name="text" pos="0,-63" height="42" text="LEVEL" text_key="xuiLevel" font_size="24" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="gamestage" width="100" height="46" pos="283,-6">
+<label depth="1" name="text" pos="0,-63" height="42" text="GAME STAGE" text_key="xuiGameStage" font_size="24" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="party" width="70" height="46" pos="391,-6">
+<label depth="1" name="text" pos="0,-63" height="42" text="PARTY" text_key="xuiParty" font_size="24" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="allies" width="70" height="46" pos="469,-6">
+<label depth="1" name="text" pos="0,-63" height="42" text="ALLIES" text_key="xuiAllies" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="voice" width="80" height="46" pos="552,-6">
+<label depth="1" name="text" pos="0,-63" height="42" text="VOICE" text_key="xuiVoice" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="km" width="50" height="46" pos="638,-6">
+<label depth="1" name="text" pos="0,-63" height="42" text="KM" text_key="xuiKM" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="map" width="80" height="86" pos="691,-6">
+<label depth="1" name="text" pos="0,-63" height="42" text="MAP" text_key="xuiMap" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="zombieKills" width="140" height="46" pos="765,-6">
+<label depth="1" name="text" pos="0,-63" height="42" text="ZOMBIE KILLS" text_key="xuiEnemyKills" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="playerKills" width="140" height="46" pos="893,-6">
+<label depth="1" name="text" pos="0,-63" height="42" text="PLAYER KILLS" text_key="xuiPlayerKills" font_size="24" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="deaths" width="90" height="86" pos="1036,-6">
+<label depth="1" name="text" pos="0,-63" height="42" text="DEATHS" text_key="xuiDeaths" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="ping" width="80" height="46" pos="1129,-6">
+<label depth="1" name="text" pos="0,-63" height="42" text="PING" text_key="xuiPing" font_size="26" justify="center" pivot="left"/>
+</rect>
+<rect depth="1" name="reportheader" width="80" height="46" pos="1212,-6" color="[darkGrey]" type="sliced">
+<label depth="1" name="text" pos="0,-63" height="42" text_key="xuiPlayersReportPlayerCol" font_size="26" justify="center" pivot="left"/>
+</rect>
+</panel>
+</players_header>
+</append>
+
+<remove xpath="/controls/vehicle_part_slot"/>
+<append xpath="/controls">
+<vehicle_part_slot>
+<rect controller="VehiclePartStack" style="vehicleStack, hover" sound_play_on_hover="[default_hover]">
+<sprite depth="2" name="backgroundMain" sprite="ui_StatBar_PcR2" pos="-3,3" width="380" height="57" color="[mediumGrey]" type="sliced" fillcenter="false"/>
+<sprite name="background" color="[mediumGrey]" height="57" pos="0,1" type="sliced"/>
+<label depth="4" pos="16,-10" width="250" height="28" text="{partname}" font_size="26" justify="left"/>
+<sprite name="itemIcon" depth="4" width="50" height="50" atlas="{partatlas}" sprite="{particon}" pos="330,-30" pivot="center" color="{particoncolor}" foregroundlayer="true"/>
+<label depth="4" pos="16,-16" width="350" height="28" text="EMPTY MODIFIER SLOT" text_key="xuiEmptyModifierSlot" font_size="26" justify="center" visible="{emptyvisible}"/>
+</rect>
+</vehicle_part_slot>
+</append>
+
+<remove xpath="/controls/item_part_slot"/>
+<append xpath="/controls">
+<item_part_slot>
+<rect controller="${controller}" style="itemPartStack, hover" sound_play_on_hover="[default_hover]">
+<sprite depth="2" name="backgroundMain" sprite="ui_StatBar_PcR2" pos="-3,3" width="380" height="63" color="[mediumGrey]" type="sliced" fillcenter="false"/>
+<sprite name="background" color="[mediumGrey]" height="59" pos="0,1" type="sliced"/>
+<label depth="4" pos="16,-13" width="250" height="28" text="{partname}" font_size="26" justify="left"/>
+<sprite name="itemIcon" depth="4" width="50" height="50" atlas="{partatlas}" sprite="{particon}" color="{particoncolor}" visible="{partvisible}" pos="330,-30" pivot="center" foregroundlayer="true"/>
+<label depth="4" pos="16,-16" width="350" height="28" text="EMPTY MODIFIER SLOT" text_key="${empty_slot_text_key}" font_size="26" justify="center" visible="{emptyvisible}"/>
+</rect>
+</item_part_slot>
+</append>
+
+<remove xpath="/controls/trader_item"/>
+<append xpath="/controls">
+<trader_item>
+<rect height="43" style="press, hover, scroll" controller="TraderItemEntry" sound="[recipe_click]" sound_play_on_hover="[default_hover]">
+<sprite depth="2" name="backgroundMain" sprite="ui_StatBar_PcR2" pos="-3,3" width="645" color="[mediumGrey]" height="49" type="sliced" fillcenter="false"/>
+<sprite depth="3" name="background" sprite="ui_StatBar_PcR2" globalopacitymod="0.1" width="100%" height="45" pos="0,1" type="sliced"/>
+<sprite depth="11" name="Icon" atlas="ItemIconAtlas" sprite="{itemicon}" color="{itemicontint}" size="38,38" pos="34,-22" pivot="center" foregroundlayer="true"/>
+<sprite depth="8" name="itemtypeicon" width="12" height="12" sprite="ui_game_symbol_{itemtypeicon}" pos="2,-2" foregroundlayer="true" visible="{hasitemtypeicon}" color="{itemtypeicontint}"/>
+<label depth="4" name="Name" pos="70,-6" width="370" height="30" text="{itemname}" font_size="28" color="{#itemtypeicon == 'book' ? '170,255,170,255' : statecolor}" justify="left"/>
+<sprite depth="3" name="durabilityBackground" width="50" height="6" sprite="menu_empty3px" color="[black_half_alpha]" type="sliced" pos="455, -36" foregroundlayer="true" visible="{hasdurability}"/>
+<sprite depth="4" name="durabilityBar" height="6" width="50" color="{durabilitycolor}" type="filled" fill="{durabilityfill}" pos="455, -36" visible="{hasdurability}"/>
+<label depth="4" name="durabilityValue" height="28" width="120" text="{durabilityvalue}" font_size="28" justify="center" pos="420,-6"/>
+<label depth="4" name="price" height="30" text="{itemprice}" font_size="28" width="100" justify="center" pos="542,-6" color="{pricecolor}"/>
+</rect>
+</trader_item>
+</append>
+
+<remove xpath="/controls/shape_stack"/>
+<append xpath="/controls">
+<shape_stack>
+<rect style="itemStack, hover, scroll" collider_scale="1.0" controller="ShapeStack" sound_play_on_hover="[default_hover]">
+<sprite depth="2" name="backgroundMain" sprite="ui_BuffPanel" pos="-3,3" width="78" height="78" color="[mediumGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="3" name="background" sprite="ui_BuffPanel" width="73" height="73" color="{selectionbordercolor}" type="sliced" globalopacity="true" fillcenter="false"/>
+<sprite depth="2" name="highlightOverlay" width="72" height="72" sprite="ui_BuffPanelHover" color="[mediumGrey]" pos="0,0" type="sliced" globalopacity="true"/>
+<sprite depth="4" name="itemIcon" width="64" height="64" atlas="ItemIconAtlas" sprite="{itemicon}" color="{itemicontint}" pos="35,-35" pivot="center" foregroundlayer="true"/>
+<sprite depth="8" name="favoriteIcon" width="24" height="24" sprite="server_favorite" pos="2,-2" foregroundlayer="true" visible="{isfavorite}"/>
+</rect>
+</shape_stack>
+</append>
+
+<remove xpath="/controls/radial_entry"/>
+<append xpath="/controls">
+<radial_entry>
+<rect depth="15" height="75" width="75" style="hover" highlight_color="[selectedColor]" pivot="center" controller="RadialEntry" sound_play_on_hover="[default_hover]">
+<sprite depth="1" height="79" width="79" name="border" sprite="ui_RadialTab" color="23,23,23,128" pivot="center"/>
+<sprite depth="2" name="background" height="79" width="79" sprite="ui_RadialTab" pivot="center"/>
+<sprite depth="3" height="56" width="56" name="icon" atlas="UIAtlas" color="255,255,255,255" pivot="center" foregroundlayer="true"/>
+<label depth="4" name="text" width="48" height="48" pos="-15,15" font_size="28" color="[white]" justify="center" effect="outline" pivot="center" visible="false"/>
+</rect>
+</radial_entry>
+</append>
+
+<remove xpath="/controls/quest_turnin_entry"/>
+<append xpath="/controls">
+<quest_turnin_entry width="652">
+<rect pos="0,0" height="50" width="653" style="press, hover" controller="QuestTurnInEntry" selected_color="[green]" default_color="[labelColor]" sound_play_on_hover="[default_hover]">
+<sprite name="backgroundMain" sprite="ui_StatBar_PcR2" color="[white]" type="sliced" fillcenter="false"/>
+<sprite depth="2" name="background" sprite="ui_StatBar_PcR2" color="[zhlightGrey]" pos="2,-3" globalopacitymod="0.15" width="${width-4}" height="44" type="sliced"/>
+<sprite depth="4" name="ItemIcon" atlas="ItemIconAtlas" sprite="{rewardicon}" color="{rewardicontint}" size="38,38" pos="34,-25" pivot="center" foregroundlayer="true" visible="{hasitemreward}"/>
+<sprite depth="2" name="windowIcon" style="icon30px" pos="20,-10" sprite="{rewardicon}" visible="{hasotherreward}"/>
+<sprite depth="8" name="itemtypeicon" width="12" height="12" sprite="ui_game_symbol_{itemtypeicon}" pos="6,-6" foregroundlayer="true" visible="{hasitemtypeicon}" color="{itemtypeicontint}"/>
+<label pos="65,-10" depth="3" text="{rewardname}" color="{namecolor}" font_size="28"/>
+<sprite depth="3" name="durabilityBackground" width="50" height="6" sprite="menu_empty3px" color="[black_half_alpha]" type="sliced" pos="585, -36" foregroundlayer="true" visible="{hasdurability}"/>
+<sprite depth="4" name="durabilityBar" height="6" width="50" color="{durabilitycolor}" type="filled" fill="{durabilityfill}" pos="585, -36" visible="{hasdurability}"/>
+<label depth="4" name="durabilityValue" height="28" width="120" text="{durabilityvalue}" font_size="28" justify="center" pos="550,-6"/>
+</rect>
+</quest_turnin_entry>
+</append>
+
+<remove xpath="/controls/material_stack"/>
+<append xpath="/controls">
+<material_stack>
+<rect controller="MaterialStack" style="itemStack, hover, scroll" collider_scale="1.1" sound="[recipe_click]" sound_play_on_hover="[default_hover]">
+<sprite depth="2" name="backgroundMain" sprite="ui_BuffPanel" pos="-3,3" width="78" height="78" color="[zhlightGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="3" name="background" sprite="ui_BuffPanel" width="73" height="73" color="{selectionbordercolor}" type="sliced" globalopacity="true" fillcenter="false"/>
+<sprite depth="2" name="highlightOverlay" width="72" height="72" sprite="ui_BuffPanelHover" color="[zhlightGrey]" pos="0,0" type="sliced" globalopacity="true"/>
+<texture depth="4" name="textMaterial" width="70" height="70" pos="36,-36" pivot="center" material="Materials/Transparent Colored" size="70,70" globalopacity="false"/>
+<sprite depth="13" name="lockIcon" size="40,40" sprite="ui_game_symbol_lock" visible="{islocked}" pos="14,-14" foregroundlayer="true"/>
+</rect>
+</material_stack>
+</append>
+
+<append xpath="/controls">
+<spawnTogglebutton depth="3" pos="0,0" width="200" height="32" enabled_font_color="[labelColor]" disabled_font_color="[disabledLabelColor]" visible="true" tooltip_key="" caption="" caption_key="" font_size="28" parse_actions="false">
+<rect name="${name}" depth="${depth}" pos="${pos}" width="${width}" height="${height}" enabled_font_color="[white]" disabled_font_color="[mediumGrey]" controller="ToggleButton" visible="${visible}">
+<button name="clickable" sprite="ui_TabButtons" disabledcolor="[zhlightGrey]" hoversprite="ui_StatBar_PcR5" hovercolor="[white]" type="sliced" hoverscale="1.0" tooltip_key="${tooltip_key}"/>
+<sprite depth="1" name="border" sprite="menu_empty2px" color="[black]" type="sliced" fillcenter="false"/>
+<sprite depth="2" name="tickbox" width="${height-6}" height="${height-6}" pos="7,-4" color="[darkGrey]" sprite="Highlight - Shadowed" type="sliced"/>
+<sprite depth="3" name="tickmark" width="${height-12}" height="${height-12}" pos="10,-7" color="[iconColor]" sprite="ui_game_symbol_check" visible="{value}"/>
+<label depth="2" name="btnLabel" width="${width-height-8}" height="${height-2}" pos="${6+height},${Round(-height/2,0)}" justify="left" text="${caption}" text_key="${caption_key}" effect="outline" pivot="left" font_size="${font_size}" parse_actions="${parse_actions}"/>
+</rect>
+</spawnTogglebutton>
+</append>
+
+<remove xpath="/controls/entity_entry"/>
+<append xpath="/controls">
+<entity_entry width="254" height="30">
+<rect height="${height}" width="${width}" style="press, hover, scroll" on_doubleclick="true" disabled_font_color="[disabledLabelColor]" enabled_font_color="[labelColor]" sound="[recipe_click]" controller="ListEntry`1[XUiC_SpawnEntitiesList+SpawnEntityEntry]" sound_play_on_hover="[default_hover]">
+<sprite depth="3" name="backgroundMain" sprite="ui_StatBar_PcR2" height="${1+height}" pos="2,0" width="${width-4}" color="[zhlightGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="2" name="background" sprite="ui_StatBar_PcR2" color="[zhlightGrey]" pos="2,0" width="${width-4}" type="sliced"/>
+<label depth="4" name="Name" pos="4,${Round(-height/2,0)}" width="${width-8}" height="${height-4}" text="{name}" font_size="${height-4}" justify="center" pivot="left"/>
+</rect>
+</entity_entry>
+</append>
+
+<remove xpath="/controls/gameevent_entry"/>
+<append xpath="/controls">
+<gameevent_entry width="254" height="30">
+<rect height="${height}" width="${width}" style="press, hover, scroll" on_doubleclick="true" disabled_font_color="[disabledLabelColor]" enabled_font_color="[labelColor]" sound="[recipe_click]" controller="ListEntry`1[XUiC_GameEventsList+GameEventEntry]" sound_play_on_hover="[default_hover]">
+<sprite depth="3" name="backgroundMain" sprite="ui_StatBar_PcR2" height="${1+height}" pos="2,0" width="${width-4}" color="[zhlightGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="2" name="background" sprite="ui_StatBar_PcR2" color="[zhlightGrey]" pos="2,0" width="${width-4}" type="sliced"/>
+<label depth="4" name="Name" pos="4,${Round(-height/2,0)}" width="${width-8}" height="${height-4}" text="{name}" font_size="${height-4}" justify="center" pivot="left"/>
+</rect>
+</gameevent_entry>
+</append>
+
+<remove xpath="/controls/poi_teleport_list_entry"/>
+<append xpath="/controls">
+<poi_teleport_list_entry width="254" height="30">
+<rect height="${height}" width="${width}" style="press, hover, scroll" on_doubleclick="true" disabled_font_color="[disabledLabelColor]" enabled_font_color="[labelColor]" sound="[recipe_click]" controller="ListEntry`1[XUiC_PoiList+PoiListEntry]" sound_play_on_hover="[default_hover]">
+<sprite depth="3" name="backgroundMain" sprite="ui_StatBar_PcR2" height="${1+height}" pos="2,0" width="${width-4}" color="[zhlightGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="2" name="background" sprite="ui_StatBar_PcR2" color="[white]" pos="2,0" width="${width-4}" type="sliced"/>
+<label depth="4" name="Name" pos="6,-2" width="${width-116}" height="32" text="{name}" font_size="30" justify="left" pivot="topleft"/>
+<label depth="4" name="Coordinates" pos="${width-6},-4" width="100" height="20" text="{coords}" font_size="18" justify="right" pivot="topright"/>
+<label depth="4" name="LocalizedName" pos="6,-36" width="${width-12}" height="22" text="{localizedname}" font_size="20" justify="left" pivot="topleft"/>
+</rect>
+</poi_teleport_list_entry>
+</append>
+
+<append xpath="/controls">
+<zh_button_mainmenuOptionsPrefab depth="3" pos="0,0" width="200" height="32" pivot="center" caption="" caption_key="" tooltip_key="" visible="true" enabled="true" sound="[default_click]">
+<rect name="${name}" depth="${depth}" pos="${pos}" width="${width}" height="${height}" font_size_default="25" enabled_font_color="[white]" disabled_font_color="[mediumGrey]" controller="SimpleButton" visible="${visible}" button_enabled="${enabled}">
+<button name="clickable" pos="10,${Round(-height/2,0)}" sprite="ui_zhSimpleButton" disabledcolor="[mediumGrey]" selectedsprite="ui_zhTabButton" hoversprite="ui_zhTabButton" hovercolor="[white]" hoverscale="1.1" pivot="${pivot}" tooltip_key="${tooltip_key}" sound_play_on_hover="[default_hover]" sound="${sound}"/>
+<label name="btnLabel" depth="2" pos="10,${Round(-2-height/2,0)}" width="${width-40}" height="${height-33}" text="${caption}" text_key="${caption_key}" font_size="25" upper_case="true" pivot="center" justify="center"/>
+</rect>
+</zh_button_mainmenuOptionsPrefab>
+</append>
+
+<remove xpath="/controls/dewcollector_stack"/>
+<append xpath="/controls">
+<dewcollector_stack controller="DewCollectorStack" on_scroll="false" allow_dropping="true" prefix_id="false" show_favorites="false">
+<rect controller="DewCollectorStack" style="itemStack, hover" collider_scale="1.0" on_scroll="${on_scroll}" allow_dropping="${allow_dropping}" prefix_id="${prefix_id}" show_favorites="${show_favorites}" tooltip="{tooltip}">
+<sprite depth="2" name="backgroundMain" sprite="ui_BuffPanel" pos="-3,3" width="78" height="78" color="[zhlightGrey]" type="sliced" fillcenter="false"/>
+<sprite depth="3" name="background" sprite="ui_BuffPanel" width="73" height="73" color="{selectionbordercolor}" type="sliced" globalopacity="true" fillcenter="false"/>
+<sprite depth="2" name="highlightOverlay" sprite="ui_BuffPanelHover" width="72" height="72" color="{backgroundcolor}" pos="0,0" type="sliced" globalopacity="true"/>
+<texture depth="3" name="backgroundTexture" material="Materials/Transparent Colored" size="73,73" globalopacity="true"/>
+<sprite depth="8" name="favoriteIcon" width="24" height="24" sprite="server_favorite" pos="2,-2" foregroundlayer="true" visible="{isfavorite}"/>
+<sprite depth="6" name="itemIcon" width="64" height="64" atlas="{itematlas}" sprite="{itemicon}" pos="35,-35" pivot="center" foregroundlayer="true" color="{iconcolor}" visible="{showitem}"/>
+<sprite depth="6" name="fillIcon" width="40" height="40" sprite="ui_game_symbol_water" pos="35,-35" pivot="center" foregroundlayer="true" color="[darkGrey]" visible="{showempty}"/>
+<sprite depth="3" name="durabilityBackground" width="70" height="10" sprite="ui_togglebuttonbg" color="[darkGrey]" type="sliced" pos="1, -60" foregroundlayer="true" visible="{hasdurability}"/>
+<filledsprite depth="4" name="durability" width="70" height="10" sprite="ui_togglebuttonbg" color="{durabilitycolor}" fill="{durabilityfill}" type="filled" pos="1, -60" foregroundlayer="true" visible="{hasdurability}"/>
+<sprite depth="5" name="disabledOverlay" width="72" height="72" color="[darkGrey_half_alpha]" pos="1,-1" type="sliced" visible="false"/>
+<label depth="7" name="stackValue" pos="-2,-45" width="70" height="28" text="{itemcount}" font_size="26" effect="outline" justify="{#hasdurability ? 'Center' : 'Right'}"/>
+<label depth="7" name="timer" pos="35,-38" width="70" height="24" font_size="24" justify="center" pivot="center" effect="outline" color="[beige]"/>
+<sprite depth="9" name="cancel" sprite="ui_game_symbol_x" width="70" height="70" color="255,0,0,255" type="sliced" visible="false" foregroundlayer="true"/>
+<sprite depth="13" name="assembleIcon" size="40,40" sprite="{stacklockicon}" color="{stacklockcolor}" visible="{isassemblelocked}" pos="14,-14" foregroundlayer="true"/>
+<rect pos="66, 0" width="64" height="74" visible="{hasfill}">
+<sprite width="6" height="73" depth="3" pos="1,0" color="[darkGrey]" globalopacity="false" type="sliced"/>
+<filledsprite depth="5" pos="1,1" width="6" name="BarContent" color="{fillcolor}" globalopacity="false" type="filled" fill="{waterfill}" filldirection="Vertical"/>
+</rect>
+</rect>
+</dewcollector_stack>
+</append>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</configs>

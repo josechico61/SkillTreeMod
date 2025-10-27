@@ -1,0 +1,204 @@
+<configs>
+
+<remove xpath="/styles/global"/>
+<append xpath="/styles">
+<global>
+<style_entry name="limeGreen" value="222,255,163,255"/>
+<style_entry name="tan" value="182,166,123,255"/>
+<style_entry name="beige" value="222,206,163"/>
+<style_entry name="borderColor" value="0,0,0"/>
+<style_entry name="darkestGrey" value="32,32,32"/>
+<style_entry name="darkGrey" value="0,0,0"/>
+<style_entry name="zhdarkGrey" value="64,64,64"/>
+<style_entry name="mediumGrey" value="96,96,96"/>
+<style_entry name="lightGrey" value="0,0,0,0"/>
+<style_entry name="zhlightGrey" value="128,128,128"/>
+<style_entry name="lightestGrey" value="32,32,32"/>
+<style_entry name="white" value="255,255,255"/>
+<style_entry name="black" value="0,0,0"/>
+<style_entry name="red" value="255,0,0"/>
+<style_entry name="green" value="0,255,0"/>
+<style_entry name="gold" value="255,216,0"/>
+<style_entry name="transparent" value="0,0,0,0"/>
+<style_entry name="white_half_alpha" value="255,255,255,128"/>
+<style_entry name="mediumGrey_half_alpha" value="96,96,96,128"/>
+<style_entry name="darkGrey_half_alpha" value="64,64,64,128"/>
+<style_entry name="black_half_alpha" value="0,0,0,128"/>
+<style_entry name="black_threequarters_alpha" value="0,0,0,191"/>
+<style_entry name="white_quarter_alpha" value="255,255,255,192"/>
+<style_entry name="iconColor" value="255,255,255"/>
+<style_entry name="labelColor" value="255,255,255"/>
+<style_entry name="selectedColor" value="222,206,163"/>
+<style_entry name="hoverColor" value="250,255,163"/>
+<style_entry name="disabledColor" value="160,160,160"/>
+<style_entry name="disabledLabelColor" value="160,160,160"/>
+<style_entry name="default_sprite" value="menu_empty"/>
+<style_entry name="default_click" value="Sounds/UI/ui_menu_click"/>
+<style_entry name="default_hover" value="Sounds/UI/ui_hover"/>
+<style_entry name="start" value="Sounds/UI/ui_menu_start"/>
+<style_entry name="back" value="Sounds/UI/ui_menu_back"/>
+<style_entry name="craft_click" value="Sounds/Crafting/craft_click_craft"/>
+<style_entry name="paging_click" value="Sounds/UI/ui_tab"/>
+<style_entry name="recipe_click" value="Sounds/Crafting/craft_click_recipe"/>
+<style_entry name="pickup_click" value="Sounds/Crafting/craft_take_item"/>
+<style_entry name="place_click" value="Sounds/Crafting/craft_place_item"/>
+<style_entry name="remove_waypoint" value="Sounds/UI/ui_waypoint_delete"/>
+<style_entry name="zh_scrollbar_background" value="0,0,0"/>
+<style_entry name="zh_scrollbar_background_hover" value="7,7,7"/>
+<style_entry name="zh_scrollbar_handler" value="224,224,224"/>
+<style_entry name="zh_scrollbar_handler_hover" value="255,255,255"/>
+<style_entry name="zh_slot_frame_locked" value="175,30,25,255"/>
+<style_entry name="zh_slot_frame_search" value="255,144,24,255"/>
+<style_entry name="zh_slot_disabled" value="64,64,64"/>
+<style_entry name="zh_element_input_frame" value="255,255,255"/>
+</global>
+</append>
+
+<append xpath="styles">
+<style name="style_statbar_shadowbg" type="sprite">
+<style_entry name="sprite" value="ui_statbar_bg_shadow"/>
+<style_entry name="color" value="0,0,0"/>
+<style_entry name="height" value="32"/>
+<style_entry name="width" value="176"/>
+<style_entry name="pos" value="-3,2"/>
+</style>
+<style name="ui_StatBar.PcR" type="sprite">
+<style_entry name="color" value="0,0,0,230"/>
+<style_entry name="sprite" value="ui_StatBar_PcR6"/>
+</style>
+<style name="style_label_normal" type="label">
+<style_entry name="font_size" value="22"/>
+<style_entry name="color" value="[white]"/>
+<style_entry name="crispness" value="OnDesktop"/>
+<style_entry name="effect" value="outline"/>
+<style_entry name="effect_distance" value="1,1"/>
+<style_entry name="effect_color" value="20,20,20,230"/>
+</style>
+<style name="style_PcRlabel_StatBar1" type="label">
+<style_entry name="font_size" value="20"/>
+<style_entry name="justify" value="center"/>
+<style_entry name="pos" value="5,-15"/>
+</style>
+<style name="zh_item_stack">
+<style_entry name="select_color" value="[beige]"/>
+<style_entry name="press_color" value="[limeGreen]"/>
+<style_entry name="final_pressed_color" value="[zhlightGrey]"/>
+<style_entry name="background_color" value="[mediumGrey]"/>
+<style_entry name="highlight_color" value="[hoverColor]"/>
+<style_entry name="holding_color" value="[white]"/>
+<style_entry name="width" value="75"/>
+<style_entry name="height" value="75"/>
+<style_entry name="hover_icon_grow" value="1.5"/>
+<style_entry name="on_press" value="true"/>
+<style_entry name="sound_volume" value="0.75"/>
+<style_entry name="pickup_sound" value="[pickup_click]"/>
+<style_entry name="place_sound" value="[place_click]"/>
+<style_entry name="lockedslot_color" value="[zh_slot_frame_locked]"/>
+<style_entry name="search_color" value="[zh_slot_frame_search]"/>
+<style_entry name="nomatch_iconcolor" value="[zh_slot_disabled]"/>
+</style>
+<style name="style_PcRlabel_StatBar2" type="label">
+<style_entry name="font_size" value="15"/>
+<style_entry name="justify" value="left"/>
+<style_entry name="pos" value="108,-15"/>
+<style_entry name="color" value="200,200,200"/>
+</style>
+<style name="style_statbar_statline" type="sprite">
+<style_entry name="sprite" value="ui_StatBarPcR2"/>
+<style_entry name="color" value="0,0,0"/>
+<style_entry name="height" value="32"/>
+<style_entry name="width" value="176"/>
+<style_entry name="pos" value="-3,2"/>
+</style>
+<style name="style_PcRlabel_Outline" type="label">
+<style_entry name="font_size" value="22"/>
+<style_entry name="color" value="[white]"/>
+<style_entry name="crispness" value="OnDesktop"/>
+<style_entry name="effect" value="Outline8"/>
+<style_entry name="effect_distance" value="1,1"/>
+<style_entry name="effect_color" value="20,20,20,230"/>
+</style>
+<style name="style_window_paging_buttons_PcR" type="button">
+<style_entry name="sprite" value="ui_zhTabButton"/>
+<style_entry name="depth" value="1"/>
+<style_entry name="width" value="107"/>
+<style_entry name="height" value="38"/>
+<style_entry name="hoverscale" value="1"/>
+<style_entry name="collider_scale" value="1.0"/>
+<style_entry name="defaultcolor" value="0,0,0,1"/>
+<style_entry name="disabledcolor" value="0,0,0"/>
+<style_entry name="globalopacitymod" value="1.2"/>
+<style_entry name="sound" value="[paging_click]"/>
+</style>
+</append>
+
+<append xpath="/styles">
+<style name="zh_paging.window.background.border" type="sprite">
+<style_entry name="depth" value="0"/>
+<style_entry name="type" value="sliced"/>
+<style_entry name="color" value="[transparent]"/>
+</style>
+
+<style name="zh_nonpaging.window.background" type="sprite">
+<style_entry name="depth" value="2"/>
+<style_entry name="sprite" value="ui_nonpagingwindow"/>
+<style_entry name="type" value="sliced"/>
+<style_entry name="size" value="394,100"/>
+<style_entry name="pos" value="3,-3"/>
+</style>
+<style name="zh_nonpaging.window.backgroundBehind" type="sprite">
+<style_entry name="depth" value="0"/>
+<style_entry name="sprite" value="ui_SmallBoard"/>
+<style_entry name="type" value="sliced"/>
+<style_entry name="size" value="394,50"/>
+<style_entry name="pos" value="3,-42"/>
+</style>
+<style type="button" name="zh_icon32px_rollover_button">
+<style_entry name="width" value="32"/>
+<style_entry name="height" value="32"/>
+<style_entry name="foregroundlayer" value="true"/>
+<style_entry name="hovercolor" value="[green]"/>
+</style>
+<style name="zh_nonpaging.window.name.background" type="sprite">
+<style_entry name="depth" value="2"/>
+<style_entry name="type" value="sliced"/>
+<style_entry name="pivot" value="center"/>
+<style_entry name="size" value="250,38"/>
+<style_entry name="pos" value="200,-50"/>
+<style_entry name="color" value="[transparent]"/>
+</style>
+<style name="zh_nonpaging.window.name.foreground" type="sprite">
+<style_entry name="depth" value="3"/>
+<style_entry name="type" value="sliced"/>
+<style_entry name="pivot" value="center"/>
+<style_entry name="size" value="200,38"/>
+<style_entry name="pos" value="200,-21"/>
+<style_entry name="color" value="[transparent]"/>
+</style>
+<style name="zh_nonpaging.window.name" type="label">
+<style_entry name="depth" value="1"/>
+<style_entry name="font_size" value="36"/>
+<style_entry name="pivot" value="center"/>
+<style_entry name="justify" value="center"/>
+<style_entry name="pos" value="200,-66"/>
+<style_entry name="name" value="lblWindowName"/>
+</style>
+</append>
+
+<append xpath="/styles">
+<style name="forge.header.timer" type="label">
+<style_entry name="name" value="burnTimeLeft"/>
+<style_entry name="depth" value="2"/>
+<style_entry name="size" value="128,28"/>
+<style_entry name="text" value="00:00"/>
+<style_entry name="font_size" value="26"/>
+<style_entry name="justify" value="right"/>
+<style_entry name="anchor_side" value="right"/>
+<style_entry name="pivot" value="right"/>
+<style_entry name="anchor_run_once" value="false"/>
+<style_entry name="anchor_offset" value="-100,0"/>
+</style>
+</append>
+
+
+</configs>

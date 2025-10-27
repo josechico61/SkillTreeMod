@@ -1,0 +1,5 @@
+<configs>
+  <append xpath="/controls">
+    <!-- keep empty for now; add reusable chunks later -->
+  </append>
+</configs>

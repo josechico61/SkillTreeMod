@@ -46,6 +46,13 @@ namespace SkillTreeMod.Console
                 return;
             }
 
+            if (cmd == "sp")
+            {
+                var n = SkillTreeModEntry.CurrentUnspentPoints();
+                Out("SP = " + n);
+                return;
+            }
+
             Out("invalid command");
         }
 

@@ -1,0 +1,49 @@
+name: XML Guardrails
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  validate-xml:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: List XML files (excluding reference & patch folders)
+        id: list
+        shell: bash
+        run: |
+          # Collect XML files, excluding reference examples and common patch/config trees
+          FILES=$(git ls-files \
+            '**/*.xml' \
+            ':!docs/ai/reference/**' \
+            ':!**/Configs/**' \
+            ':!**/configs/**' \
+            ':!**/Patches/**' \
+            ':!**/patches/**' \
+          )
+
+          if [ -z "$FILES" ]; then
+            echo "no_xml=true" >> "$GITHUB_OUTPUT"
+            echo "No XML files to lint (after exclusions)."
+          else
+            printf "%s\n" "$FILES" > xml_file_list.txt
+            echo "no_xml=false" >> "$GITHUB_OUTPUT"
+            echo "Will lint the following XML files:"
+            cat xml_file_list.txt
+          fi
+
+      - name: Run schema linter
+        if: steps.list.outputs.no_xml == 'false'
+        shell: bash
+        run: |
+          python scripts/lint_xml.py $(cat xml_file_list.txt)
