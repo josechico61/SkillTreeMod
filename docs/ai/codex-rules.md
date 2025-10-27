@@ -14,6 +14,12 @@ Codex must generate UI XML that matches vanilla 7DTD patterns exactly. Never inv
 
 \## Golden Rules
 
+0) ANCHORS:
+- Never invent anchor names. The window’s anchor MUST already exist inside the target window_group OR be the name of another window that you also register in that group.
+- For center-screen overlays, prefer anchor="CenterCenter" and register the window in the 'compass' window_group of the default ruleset.
+- If a custom anchor is needed, first register a tiny "anchor window" in the group and then anchor other windows to that anchor window’s name.
+
+
 1) <window> MAY include width/height when mirroring vanilla/mod patterns.
    Still keep layout in containers (<rect>/<grid>) and avoid non-vanilla attributes.
 

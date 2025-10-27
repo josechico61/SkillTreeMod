@@ -16,7 +16,7 @@
     "tooltip","tooltip_key","sound","sound_play_on_hover","selected","gamepad_selectable",
     "on_hover","on_press","on_scroll","collider_scale","rotation","parse_actions",
     "defaultSelected","open_backpack_on_open","close_compass_on_open","actionSet",
-    "left_panel_valign_top","xpath","value","anchor"
+    "left_panel_valign_top","xpath","value","anchor","visibility"
   ],
   "xui:allowed_tags": [
     "windows","window","rect","grid","panel",
