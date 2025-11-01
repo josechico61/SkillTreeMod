@@ -1,5 +1,0 @@
-<configs>
-  <append xpath="/styles">
-    <!-- keep empty for now; it just needs to be a valid patch file -->
-  </append>
-</configs>

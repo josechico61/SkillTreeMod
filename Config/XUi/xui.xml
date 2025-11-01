@@ -1,0 +1,11 @@
+<configs>
+	<remove xpath="/xui/ruleset[@name='default']/window_group[@name='skills']"></remove>
+	<append xpath="/xui/ruleset[@name='default']">
+		<window_group 
+			name="SkillTreeMenu" 
+			close_compass_on_open="true"
+			controller="XUiC_SkillTreeGroup, SkillTreeMod">
+		  <window name="SkillTreeMenuBg"/>
+    </window_group>
+	</append>
+</configs>

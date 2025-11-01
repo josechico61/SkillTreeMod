@@ -1,14 +1,13 @@
+﻿using System.Reflection;
 using HarmonyLib;
+using UnityEngine;
 
-namespace SkillTreeMod
+public class SkillTreeModEntry : IModApi
 {
-    public class SkillTreeModApi : IModApi
+    public void InitMod(Mod _modInstance)
     {
-        public void InitMod(Mod modInstance)
-        {
-            var h = new Harmony("com.josechico.SkillTreeMod");
-            SkillTreeMod.HarmonyPatches.PatchInstaller.Install(h);   // our real (safe) patch
-            SkillTreeMod.HarmonyPatches.TraceInstaller.Install(h);   // TEMP: tracer to discover hooks
-        }
+        var harmony = new Harmony("po.skilltreemod");
+        harmony.PatchAll(Assembly.GetExecutingAssembly());
+        Debug.Log("[SkillTreeMod] Harmony patched");
     }
 }
